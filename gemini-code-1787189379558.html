@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سوق السويس الرقمي | الدليل التجاري الأول</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap');
+        body { font-family: 'Cairo', sans-serif; }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log("Suez Market Firewall: Secure Session Initialized.");
+        });
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- شريط التنقل العلوي -->
+    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center flex-wrap gap-4">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-store text-amber-400 text-2xl"></i>
+                <span class="text-xl font-bold tracking-wide">سوق <span class="text-amber-400">السويس</span> الرقمي</span>
+            </div>
+            <nav class="hidden md:flex gap-6 text-sm font-semibold">
+                <a href="#stores" class="hover:text-amber-400 transition">المتاجر</a>
+                <a href="#ads" class="hover:text-amber-400 transition">الإعلانات</a>
+                <a href="#packages" class="hover:text-amber-400 transition">الباقات</a>
+                <a href="#about" class="hover:text-amber-400 transition">معلومات عنا</a>
+            </nav>
+            <div class="flex items-center gap-2">
+                <a href="#" class="bg-slate-800 hover:bg-slate-700 text-white px-3 py-2 rounded-xl text-xs md:text-sm font-semibold flex items-center gap-1.5 transition border border-slate-700">
+                    <i class="fa-solid fa-user text-amber-400"></i> تسجيل الدخول / اشتراك
+                </a>
+                <a href="https://wa.me/201000000000" target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-xl text-xs md:text-sm font-bold flex items-center gap-1.5 transition">
+                    <i class="fa-brands fa-whatsapp text-base"></i> انضم كتاجر
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- الواجهة الترحيبية ومحرك البحث السريع -->
+    <section class="bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white py-16 text-center">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h1 class="text-3xl md:text-5xl font-extrabold mb-4">أهلاً وسهلاً بكم في سوق السويس الرقمي</h1>
+            <p class="text-slate-300 text-base md:text-lg mb-8">وجهتك الأولى لتسوق الأنشطة التجارية والمحلات في محافظة السويس مباشرة عبر الواتساب.</p>
+            
+            <!-- صندوق البحث الفوري -->
+            <div class="bg-white p-2 rounded-2xl shadow-lg flex items-center">
+                <i class="fa-solid fa-magnifying-glass text-slate-400 px-4 text-lg"></i>
+                <input type="text" id="searchInput" onkeyup="filterStores()" placeholder="ابحث عن اسم محل، منتج، أو خدمة في السويس..." class="w-full py-3 px-2 text-slate-800 outline-none text-sm md:text-base bg-transparent">
+            </div>
+        </div>
+    </section>
+
+    <!-- أقسام المتاجر -->
+    <section id="stores" class="py-16 container mx-auto px-4">
+        
+        <div class="flex justify-between items-center mb-10 flex-wrap gap-4">
+            <h2 class="text-2xl font-bold text-slate-900 border-r-4 border-amber-500 pr-3">دليل محلات وتجار السويس</h2>
+        </div>
+
+        <div id="storesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- تاجر 1 (مثال متكامل بلوحة تحكم وتقييم وروابط سوشيال) -->
+            <div class="store-card bg-white rounded-2xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition relative" data-name="برند النورس للأزياء السويس شارع الجيش">
+                
+                <!-- رأس الكارت: صورة المحل والاسم والتقييم -->
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-12 h-12 bg-slate-200 rounded-full flex items-center justify-center overflow-hidden border border-slate-300 shrink-0">
+                        <i class="fa-solid fa-store text-slate-500 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-slate-900 leading-tight">برند النورس للأزياء</h3>
+                        <p class="text-slate-500 text-xs"><i class="fa-solid fa-location-dot text-amber-500 ml-1"></i> السويس - شارع الجيش</p>
+                    </div>
+                </div>
+
+                <!-- نظام التقييم الاختياري -->
+                <div class="flex items-center justify-between mb-3 bg-slate-50 p-2 rounded-xl text-xs">
+                    <span class="text-slate-600 font-semibold">تقييم العملاء:</span>
+                    <div class="flex text-amber-400 gap-0.5 cursor-pointer" onclick="rateStore(this)">
+                        <i class="fa-solid fa-star" data-value="1"></i>
+                        <i class="fa-solid fa-star" data-value="2"></i>
+                        <i class="fa-solid fa-star" data-value="3"></i>
+                        <i class="fa-solid fa-star" data-value="4"></i>
+                        <i class="fa-solid fa-star text-slate-300" data-value="5"></i>
+                    </div>
+                </div>
+
+                <!-- زر فتح لوحة تحكم التاجر -->
+                <button onclick="toggleAdminPanel(this)" class="w-full bg-slate-900 text-amber-400 py-1.5 rounded-xl text-xs font-bold mb-3 flex items-center justify-center gap-2 hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-gear"></i> لوحة تحكم التاجر (خاص)
+                </button>
+
+                <!-- لوحة تحكم التاجر المخفية افتراضياً -->
+                <div class="admin-panel hidden bg-slate-100 p-3 rounded-xl mb-3 border border-slate-300 text-xs space-y-2">
+                    <p class="font-bold text-slate-800 border-b pb-1">⚙️ إدارة المتجر والأقسام (حتى 10 أقسام):</p>
+                    <div class="flex gap-2">
+                        <input type="text" placeholder="اسم القسم الجديد..." class="p-1.5 rounded border w-full outline-none">
+                        <button class="bg-amber-500 text-slate-950 font-bold px-3 rounded hover:bg-amber-600">إضافة</button>
+                    </div>
+                    <div class="flex gap-2">
+                        <input type="text" placeholder="تعديل سعر المنتج / خصم..." class="p-1.5 rounded border w-full outline-none">
+                        <button class="bg-blue-600 text-white font-bold px-3 rounded hover:bg-blue-700">تحديث</button>
+                    </div>
+                </div>
+
+                <!-- عرض المنتجات والأقسام داخل المتجر -->
+                <div class="grid grid-cols-2 gap-2 mb-4">
+                    <div class="bg-slate-100 h-24 rounded-lg flex flex-col items-center justify-center text-xs text-slate-500 border relative">
+                        <span>بنطلون جينز</span>
+                        <span class="text-red-600 font-bold mt-1">350 ج</span>
+                    </div>
+                    <div class="bg-slate-100 h-24 rounded-lg flex flex-col items-center justify-center text-xs text-slate-500 border relative">
+                        <span>تيشيرت كاجوال</span>
+                        <span class="text-red-600 font-bold mt-1">200 ج</span>
+                    </div>
+                </div>
+
+                <!-- أزرار التواصل (واتساب + فيسبوك + إنستجرام) -->
+                <div class="flex items-center gap-2">
+                    <a href="https://wa.me/201000000000?text=مرحباً، أريد الاستفسار عن منتجات متجرك" target="_blank" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition">
+                        <i class="fa-brands fa-whatsapp text-sm"></i> واتساب
+                    </a>
+                    <a href="https://facebook.com" target="_blank" class="w-9 h-9 bg-blue-600 hover:bg-blue-700 text-white rounded-xl flex items-center justify-center transition text-sm">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" class="w-9 h-9 bg-pink-600 hover:bg-pink-700 text-white rounded-xl flex items-center justify-center transition text-sm">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- تاجر 2 -->
+            <div class="store-card bg-white rounded-2xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition relative" data-name="الرحاب للإلكترونيات السويس الجيزية">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-12 h-12 bg-slate-200 rounded-full flex items-center justify-center overflow-hidden border border-slate-300 shrink-0">
+                        <i class="fa-solid fa-laptop text-slate-500 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-slate-900 leading-tight">الرحاب للإلكترونيات</h3>
+                        <p class="text-slate-500 text-xs"><i class="fa-solid fa-location-dot text-amber-500 ml-1"></i> السويس - حي الجيزية</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between mb-3 bg-slate-50 p-2 rounded-xl text-xs">
+                    <span class="text-slate-600 font-semibold">تقييم العملاء:</span>
+                    <div class="flex text-amber-400 gap-0.5 cursor-pointer" onclick="rateStore(this)">
+                        <i class="fa-solid fa-star" data-value="1"></i>
+                        <i class="fa-solid fa-star" data-value="2"></i>
+                        <i class="fa-solid fa-star" data-value="3"></i>
+                        <i class="fa-solid fa-star" data-value="4"></i>
+                        <i class="fa-solid fa-star" data-value="5"></i>
+                    </div>
+                </div>
+
+                <button onclick="toggleAdminPanel(this)" class="w-full bg-slate-900 text-amber-400 py-1.5 rounded-xl text-xs font-bold mb-3 flex items-center justify-center gap-2 hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-gear"></i> لوحة تحكم التاجر (خاص)
+                </button>
+
+                <div class="admin-panel hidden bg-slate-100 p-3 rounded-xl mb-3 border border-slate-300 text-xs space-y-2">
+                    <p class="font-bold text-slate-800 border-b pb-1">⚙️ إدارة المتجر والأقسام:</p>
+                    <div class="flex gap-2">
+                        <input type="text" placeholder="اسم القسم الجديد..." class="p-1.5 rounded border w-full outline-none">
+                        <button class="bg-amber-500 text-slate-950 font-bold px-3 rounded hover:bg-amber-600">إضافة</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 mb-4">
+                    <div class="bg-slate-100 h-24 rounded-lg flex flex-col items-center justify-center text-xs text-slate-500 border">
+                        <span>شاحن أصلي</span>
+                        <span class="text-red-600 font-bold mt-1">150 ج</span>
+                    </div>
+                    <div class="bg-slate-100 h-24 rounded-lg flex flex-col items-center justify-center text-xs text-slate-500 border">
+                        <span>سماعة بلوتوث</span>
+                        <span class="text-red-600 font-bold mt-1">250 ج</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <a href="https://wa.me/201000000000" target="_blank" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition">
+                        <i class="fa-brands fa-whatsapp text-sm"></i> واتساب
+                    </a>
+                    <a href="https://facebook.com" target="_blank" class="w-9 h-9 bg-blue-600 text-white rounded-xl flex items-center justify-center text-sm"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://instagram.com" target="_blank" class="w-9 h-9 bg-pink-600 text-white rounded-xl flex items-center justify-center text-sm"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <!-- تاجر 3 -->
+            <div class="store-card bg-white rounded-2xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition relative" data-name="موبايل شوب السويس الهداية">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-12 h-12 bg-slate-200 rounded-full flex items-center justify-center overflow-hidden border border-slate-300 shrink-0">
+                        <i class="fa-solid fa-mobile-screen text-slate-500 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-slate-900 leading-tight">موبايل شوب السويس</h3>
+                        <p class="text-slate-500 text-xs"><i class="fa-solid fa-location-dot text-amber-500 ml-1"></i> السويس - شارع الهداية</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between mb-3 bg-slate-50 p-2 rounded-xl text-xs">
+                    <span class="text-slate-600 font-semibold">تقييم العملاء:</span>
+                    <div class="flex text-amber-400 gap-0.5 cursor-pointer" onclick="rateStore(this)">
+                        <i class="fa-solid fa-star" data-value="1"></i>
+                        <i class="fa-solid fa-star" data-value="2"></i>
+                        <i class="fa-solid fa-star" data-value="3"></i>
+                        <i class="fa-solid fa-star text-slate-300" data-value="4"></i>
+                        <i class="fa-solid fa-star text-slate-300" data-value="5"></i>
+                    </div>
+                </div>
+
+                <button onclick="toggleAdminPanel(this)" class="w-full bg-slate-900 text-amber-400 py-1.5 rounded-xl text-xs font-bold mb-3 flex items-center justify-center gap-2 hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-gear"></i> لوحة تحكم التاجر (خاص)
+                </button>
+
+                <div class="admin-panel hidden bg-slate-100 p-3 rounded-xl mb-3 border border-slate-300 text-xs space-y-2">
+                    <p class="font-bold text-slate-800 border-b pb-1">⚙️ إدارة المتجر والأقسام:</p>
+                    <div class="flex gap-2">
+                        <input type="text" placeholder="اسم القسم الجديد..." class="p-1.5 rounded border w-full outline-none">
+                        <button class="bg-amber-500 text-slate-950 font-bold px-3 rounded hover:bg-amber-600">إضافة</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 mb-4">
+                    <div class="bg-slate-100 h-24 rounded-lg flex flex-col items-center justify-center text-xs text-slate-500 border">
+                        <span>اسكرينه حماية</span>
+                        <span class="text-red-600 font-bold mt-1">50 ج</span>
+                    </div>
+                    <div class="bg-slate-100 h-24 rounded-lg flex flex-col items-center justify-center text-xs text-slate-500 border">
+                        <span>جراب موبايل</span>
+                        <span class="text-red-600 font-bold mt-1">75 ج</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <a href="https://wa.me/201000000000" target="_blank" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition">
+                        <i class="fa-brands fa-whatsapp text-sm"></i> واتساب
+                    </a>
+                    <a href="https://facebook.com" target="_blank" class="w-9 h-9 bg-blue-600 text-white rounded-xl flex items-center justify-center text-sm"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://instagram.com" target="_blank" class="w-9 h-9 bg-pink-600 text-white rounded-xl flex items-center justify-center text-sm"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- قسم الإعلانات الخاصة -->
+    <section id="ads" class="py-12 bg-amber-50 border-y border-amber-200">
+        <div class="container mx-auto px-4 text-center">
+            <span class="bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">إعلانات مميزة</span>
+            <h2 class="text-2xl font-bold text-slate-900 mt-3 mb-2">قسم الإعلانات الخاصة والعروض الكبرى</h2>
+            <p class="text-slate-600 max-w-xl mx-auto text-sm mb-6">مساحة إعلانية مخصصة لشركائنا لإبراز أقوى العروض والخصومات الحصرية لأهالي السويس.</p>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-amber-300 max-w-2xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="text-right">
+                    <h3 class="font-bold text-lg text-slate-900">مهرجان التخفيضات الكبرى في السويس</h3>
+                    <p class="text-slate-500 text-sm">احصل على خصم إضافي عند إشارتك لموقع "سوق السويس الرقمي"</p>
+                </div>
+                <a href="https://wa.me/201000000000" target="_blank" class="bg-slate-900 text-white px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap">اعلن معنا</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم باقات الاشتراكات وطرق الدفع -->
+    <section id="packages" class="py-16 container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-slate-900">باقات الاشتراك المتاحة للتجار</h2>
+            <p class="text-slate-600 mt-2">اختر الباقة المناسبة لنشاطك التجاري وضاعف مبيعاتك اليوم</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <!-- باقة الشهر -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800">باقة الشهر</h3>
+                    <div class="my-4">
+                        <span class="text-3xl font-extrabold text-slate-900">1000</span>
+                        <span class="text-slate-500 text-sm"> جنيه / شهرياً</span>
+                    </div>
+                    <ul class="text-sm text-slate-600 space-y-2 mb-6">
+                        <li><i class="fa-solid fa-check text-green-500 ml-2"></i> لوحة تحكم خاصة</li>
+                        <li><i class="fa-solid fa-check text-green-500 ml-2"></i> زر واتساب وسوشيال</li>
+                    </ul>
+                </div>
+                <a href="https://wa.me/201000000000" class="w-full bg-slate-900 text-white text-center py-2.5 rounded-xl font-bold text-sm">اشترك الآن</a>
+            </div>
+
+            <!-- باقة 3 أشهر -->
+            <div class="bg-white rounded-2xl p-6 shadow-md border-2 border-amber-400 relative flex flex-col justify-between">
+                <span class="absolute -top-3 right-6 bg-amber-500 text-slate-950 text-xs font-extrabold px-3 py-1 rounded-full">وفر 500 ج</span>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800">باقة 3 أشهر</h3>
+                    <div class="my-4">
+                        <span class="text-3xl font-extrabold text-slate-900">2500</span>
+                        <span class="text-slate-500 text-xs line-through text-red-500 ml-1">3000 ج</span>
+                    </div>
+                    <ul class="text-sm text-slate-600 space-y-2 mb-6">
+                        <li><i class="fa-solid fa-check text-green-500 ml-2"></i> صفحة متكاملة</li>
+                        <li><i class="fa-solid fa-check text-green-500 ml-2"></i> حتى 10 أقسام للمنتجات</li>
+                    </ul>
+                </div>
+                <a href="https://wa.me/201000000000" class="w-full bg-amber-500 text-slate-950 text-center py-2.5 rounded-xl font-bold text-sm">اشترك الآن</a>
+            </div>
+
+            <!-- باقة 6 أشهر -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800">باقة 6 أشهر</h3>
+                    <div class="my-4">
+                        <span class="text-3xl font-extrabold text-slate-900">5000</span>
+                        <span class="text-slate-500 text-xs line-through text-red-500 ml-1">6000 ج</span>
+                    </div>
+                    <ul class="text-sm text-slate-600 space-y-2 mb-6">
+                        <li><i class="fa-solid fa-check text-green-500 ml-2"></i> ظهور مميز ودعم فني</li>
+                        <li><i class="fa-solid fa-check text-green-500 ml-2"></i> تقييمات العملاء</li>
+                    </ul>
+                </div>
+                <a href="https://wa.me/201000000000" class="w-full bg-slate-900 text-white text-center py-2.5 rounded-xl font-bold text-sm">اشترك الآن</a>
+            </div>
+
+            <!-- باقة السنة -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800">باقة السنة</h3>
+                    <div class="my-4">
+                        <span class="text-3xl font-extrabold text-slate-900">9000</span>
+                        <span class="text-slate-500 text-xs line-through text-red-500 ml-1">12000 ج</span>
+                    </div>
+                    <ul class="text-sm text-slate-600 space-y-2 mb-6">
+                        <li><i class="fa-solid fa-check text-green-500 ml-2"></i> شريك ذهبي دائم</li>
+                        <li><i class="fa-solid fa-check text-green-500 ml-2"></i> أولوية قصوى بالظهور</li>
+                    </ul>
+                </div>
+                <a href="https://wa.me/201000000000" class="w-full bg-slate-900 text-white text-center py-2.5 rounded-xl font-bold text-sm">اشترك الآن</a>
+            </div>
+        </div>
+
+        <!-- طرق الدفع المتاحة -->
+        <div class="bg-slate-100 p-6 rounded-2xl text-center border border-slate-200 max-w-xl mx-auto">
+            <h4 class="font-bold text-slate-900 mb-3">طرق دفع الاشتراكات المتاحة:</h4>
+            <div class="flex justify-center gap-6 text-sm font-semibold text-slate-700 flex-wrap">
+                <span class="bg-white px-4 py-2 rounded-lg shadow-sm border"><i class="fa-solid fa-mobile-screen-button text-red-600 ml-1"></i> فودافون كاش</span>
+                <span class="bg-white px-4 py-2 rounded-lg shadow-sm border"><i class="fa-solid fa-building-columns text-blue-600 ml-1"></i> انستاباي (InstaPay)</span>
+                <span class="bg-white px-4 py-2 rounded-lg shadow-sm border"><i class="fa-solid fa-credit-card text-amber-600 ml-1"></i> Visa</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer id="about" class="bg-slate-950 text-slate-300 pt-16 pb-8 border-t border-slate-900">
+        <div class="container mx-auto px-4">
+            <div class="pb-12 border-b border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fa-solid fa-store text-amber-400 text-2xl"></i>
+                        <span class="text-xl font-bold tracking-wide text-white">سوق <span class="text-amber-400">السويس</span> الرقمي</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-lg">
+                        سوق السويس الرقمي مكانك المفضل لشراء افضل المنتجات بافضل الاسعار . نوفر لك تجربه سوق سهله وامنه لافضل تجار المحافظه وتوصيل سريع لجميع المناطق .
+                    </p>
+                </div>
+                <div class="flex md:justify-end gap-4">
+                    <a href="https://facebook.com" target="_blank" class="w-10 h-10 rounded-full bg-slate-900 hover:bg-blue-600 flex items-center justify-center text-white transition text-lg"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://instagram.com" target="_blank" class="w-10 h-10 rounded-full bg-slate-900 hover:bg-pink-600 flex items-center justify-center text-white transition text-lg"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-slate-900 text-center text-xs text-slate-500">
+                <p>© 2026 سوق السويس. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- سكربت الجافاسكريبت للبحث والتحكم التفاعلي -->
+    <script>
+        // البحث الفوري
+        function filterStores() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('store-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let storeName = cards[i].getAttribute('data-name').toLowerCase();
+                if (storeName.includes(input)) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        // إظهار وإخفاء لوحة تحكم التاجر الخاصة بكل متجر
+        function toggleAdminPanel(button) {
+            let panel = button.nextElementSibling;
+            if (panel.classList.contains('hidden')) {
+                panel.classList.remove('hidden');
+                button.innerHTML = '<i class="fa-solid fa-gear"></i> إغلاق لوحة التحكم';
+            } else {
+                panel.classList.add('hidden');
+                button.innerHTML = '<i class="fa-solid fa-gear"></i> لوحة تحكم التاجر (خاص)';
+            }
+        }
+
+        // تفاعل نظام التقييم بالنجوم
+        function rateStore(starContainer) {
+            let stars = starContainer.children;
+            for (let i = 0; i < stars.length; i++) {
+                stars[i].classList.remove('text-slate-300');
+                stars[i].classList.add('text-amber-400');
+            }
+            alert("شكراً لك! تم تسجيل تقييمك بنجاح.");
+        }
+    </script>
+</body>
+</html>
