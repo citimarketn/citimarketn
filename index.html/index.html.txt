@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سوق السويس الإلكتروني - تصميم شركة سوق المدينة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+        body { font-family: 'Cairo', sans-serif; background-color: #f8fafc; color: #1e293b; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col">
+
+    <!-- Global Header -->
+    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex flex-wrap justify-between items-center">
+            <div class="flex items-center space-x-3 space-x-reverse cursor-pointer" onclick="showHome()">
+                <div class="bg-amber-500 text-slate-950 p-2 rounded-lg font-black text-xl flex items-center justify-center">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-wide">سوق السويس الإلكتروني</h1>
+                    <p class="text-xs text-slate-400">تصميم شركة سوق المدينة</p>
+                </div>
+            </div>
+            
+            <div id="header-nav" class="flex items-center space-x-3 space-x-reverse mt-2 sm:mt-0">
+                <a href="https://wa.me/201000000000?text=أرغب%20في%20الانضمام%20كتاجر%20في%20سوق%20السويس" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-sm font-bold transition flex items-center gap-2 shadow">
+                    <span>انضم كتاجر</span>
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                </a>
+                <button onclick="secureAction('login-modal', () => alert('نافذة تسجيل الدخول / اشتراك'))" class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 px-4 py-2 rounded-xl text-sm font-bold transition flex items-center gap-2 shadow">
+                    <span>تسجيل الدخول / اشتراك</span>
+                    <i class="fa-solid fa-user text-amber-500"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow">
+        
+        <!-- ================= VIEW 1: HOME PAGE ================= -->
+        <div id="view-home">
+            <!-- Hero Section -->
+            <section class="bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white py-16 px-4 text-center">
+                <div class="container mx-auto max-w-4xl">
+                    <h2 class="text-3xl sm:text-5xl font-black mb-6 leading-tight">أهلاً وسهلاً بكم في سوق السويس الإلكتروني</h2>
+                    <p class="text-lg sm:text-xl text-slate-300 mb-4 leading-relaxed">وجهتك الأولى لتسوق الأنشطة التجارية والمحلات في محافظة السويس مباشرة عبر الواتساب.</p>
+                    <p class="text-base sm:text-lg text-amber-400 font-semibold mb-8">ابحث عن متجرك المناسب او المنتج المناسب او السلعه المناسبه او الخدمه المناسبه بضغطه زر واحده.</p>
+                    
+                    <div class="bg-white p-2 rounded-2xl shadow-xl flex flex-col sm:flex-row gap-2 max-w-2xl mx-auto">
+                        <div class="flex-grow flex items-center px-3 py-2 bg-slate-100 rounded-xl">
+                            <i class="fa-solid fa-search text-slate-400 ml-2"></i>
+                            <input type="text" id="main-search" oninput="secureSearchInput(this)" placeholder="ابحث عن محل، منتج، خدمة، أو سلعة..." class="bg-transparent w-full focus:outline-none text-slate-800 text-sm">
+                        </div>
+                        <button onclick="secureAction('search', () => alert('جارٍ البحث الآمن...'))" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold transition">بحث سريع</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Special Ads Section (New requested section) -->
+            <section class="bg-amber-50/60 py-12 px-4 border-y border-amber-100">
+                <div class="container mx-auto max-w-4xl text-center">
+                    <div class="inline-block bg-amber-500 text-slate-950 text-xs font-bold px-4 py-1.5 rounded-full shadow-sm mb-3">
+                        <i class="fa-solid fa-bullhorn ml-1"></i> إعلانات مميزة
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-black text-slate-900 mb-2">قسم الإعلانات الخاصة والعروض الكبرى</h3>
+                    <p class="text-slate-600 text-sm mb-8">مساحة إعلانية مخصصة لشركائنا لإبراز أقوى العروض والخصومات الحصرية لأهالي السويس.</p>
+
+                    <div class="bg-white border-2 border-amber-400 p-6 rounded-3xl shadow-md max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-right">
+                        <div>
+                            <h4 class="text-lg font-black text-slate-900 mb-1">مهرجان التخفيضات الكبرى في السويس</h4>
+                            <p class="text-xs text-slate-500">احصل على خصم إضافي عند إشارتك لموقع "سوق السويس الرقمي"</p>
+                        </div>
+                        <a href="https://wa.me/201000000000?text=أرغب%20في%20الاعلان%20في%20قسم%20العروض%20الكبرى" target="_blank" class="bg-slate-900 hover:bg-amber-500 hover:text-slate-950 text-white px-6 py-3 rounded-xl text-xs font-bold transition shadow whitespace-nowrap">
+                            اعلن معنا
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section class="container mx-auto px-4 py-12">
+                <div class="text-center mb-10">
+                    <h3 class="text-2xl font-black text-slate-900 mb-2">دليل محلات وتجار السويس</h3>
+                    <p class="text-slate-600 text-sm">اختر القسم المناسب لتتصفح مئات المتاجر والخدمات المتنوعة</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div onclick="secureAction('cat-1', () => alert('تم اختيار القسم بنجاح'))" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition cursor-pointer border border-slate-100 flex items-center space-x-4 space-x-reverse group">
+                        <div class="bg-blue-50 text-blue-600 p-4 rounded-xl text-xl group-hover:bg-blue-600 group-hover:text-white transition"><i class="fa-solid fa-laptop"></i></div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-lg">إلكترونيات وأجهزة كهربائية وصيانة</h4>
+                            <p class="text-xs text-slate-500 mt-1">شاشات، هواتف، أجهزة منزلية، قطع غيار</p>
+                        </div>
+                    </div>
+                    <div onclick="secureAction('cat-2', () => alert('تم اختيار القسم بنجاح'))" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition cursor-pointer border border-slate-100 flex items-center space-x-4 space-x-reverse group">
+                        <div class="bg-pink-50 text-pink-600 p-4 rounded-xl text-xl group-hover:bg-pink-600 group-hover:text-white transition"><i class="fa-solid fa-shirt"></i></div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-lg">ملابس وموضة وأحذية</h4>
+                            <p class="text-xs text-slate-500 mt-1">أزياء رجالية، نسائية، أطفال، أحذية وإكسسوارات</p>
+                        </div>
+                    </div>
+                    <div onclick="secureAction('cat-3', () => alert('تم اختيار القسم بنجاح'))" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition cursor-pointer border border-slate-100 flex items-center space-x-4 space-x-reverse group">
+                        <div class="bg-emerald-50 text-emerald-600 p-4 rounded-xl text-xl group-hover:bg-emerald-600 group-hover:text-white transition"><i class="fa-solid fa-basket-shopping"></i></div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-lg">مواد غذائية وسوبر ماركت وعطارة وأسماك</h4>
+                            <p class="text-xs text-slate-500 mt-1">سلع تموينية، أسماك طازجة، عطارة، خضروات</p>
+                        </div>
+                    </div>
+                    <div onclick="secureAction('cat-4', () => alert('تم اختيار القسم بنجاح'))" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition cursor-pointer border border-slate-100 flex items-center space-x-4 space-x-reverse group">
+                        <div class="bg-amber-50 text-amber-600 p-4 rounded-xl text-xl group-hover:bg-amber-600 group-hover:text-white transition"><i class="fa-solid fa-couch"></i></div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-lg">أثاث وديكور ومفروشات</h4>
+                            <p class="text-xs text-slate-500 mt-1">غرف نوم، مجالس، ديكورات، مفروشات منزلية</p>
+                        </div>
+                    </div>
+                    <div onclick="secureAction('cat-5', () => alert('تم اختيار القسم بنجاح'))" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition cursor-pointer border border-slate-100 flex items-center space-x-4 space-x-reverse group">
+                        <div class="bg-violet-50 text-violet-600 p-4 rounded-xl text-xl group-hover:bg-violet-600 group-hover:text-white transition"><i class="fa-solid fa-car"></i></div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-lg">خدمات ومستلزمات سيارات ودراجات</h4>
+                            <p class="text-xs text-slate-500 mt-1">قطع غيار، زيوت، إكسسوارات، صيانة سيارات</p>
+                        </div>
+                    </div>
+                    <div onclick="secureAction('cat-6', () => alert('تم اختيار القسم بنجاح'))" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition cursor-pointer border border-slate-100 flex items-center space-x-4 space-x-reverse group">
+                        <div class="bg-cyan-50 text-cyan-600 p-4 rounded-xl text-xl group-hover:bg-cyan-600 group-hover:text-white transition"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-lg">خدمات عامة ومهنية (صيانة منزلية، مقاولات)</h4>
+                            <p class="text-xs text-slate-500 mt-1">سباكة، كهرباء، مقاولات عامة، خدمات تنظيف</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Shops Section (75 Shops) -->
+            <section id="shops-section" class="container mx-auto px-4 py-8">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 border-b border-slate-200 pb-4">
+                    <h3 class="text-2xl font-black text-slate-900">محلات السويس المتاحة (75 متجراً معتمداً)</h3>
+                    <div class="flex flex-wrap gap-2 text-sm">
+                        <span class="bg-slate-900 text-white px-4 py-2 rounded-lg font-bold">الكل (75)</span>
+                        <span class="bg-white text-slate-700 border border-slate-200 px-4 py-2 rounded-lg font-bold">المميزة</span>
+                        <span class="bg-white text-slate-700 border border-slate-200 px-4 py-2 rounded-lg font-bold">الأعلى تقييماً</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <script>
+                        const shopNames = [
+                            'محل السويس للكمبيوتر', 'تكنو ستور السويس', 'معرض النور للأجهزة', 'مجموعة الاستقامة التجارية', 
+                            'عطارة الشفاء المباركة', 'سوبر ماركت الفيروز', 'مكتبة ومكتب أدوات', 'ملابس الأجيال', 
+                            'أحذية المنهج الحديث', 'أثاث دمياط فرع السويس', 'سنتر الأمل للتسوق', 'محل الشروق للكهرباء',
+                            'معرض الوادي للأثاث', 'عطارة الإخلاص', 'سوبر ماركت النيل', 'مكتبة الفجر الحديثة'
+                        ];
+                        const cats = ['إلكترونيات', 'ملابس', 'مواد غذائية', 'أثاث', 'سيارات', 'خدمات عامة', 'عطارة وأسماك'];
+                        
+                        // Loop to generate exactly 75 shops
+                        for (let i = 1; i <= 75; i++) {
+                            let name = shopNames[(i - 1) % shopNames.length] + ' (' + i + ')';
+                            let cat = cats[(i - 1) % cats.length];
+                            let rating = (4.0 + ((i % 7) * 0.1)).toFixed(1);
+                            document.write(`
+                            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition overflow-hidden flex flex-col">
+                                <div class="bg-slate-200 h-36 flex items-center justify-center text-slate-400 relative">
+                                    <i class="fa-solid fa-store text-4xl"></i>
+                                    <span class="absolute top-3 right-3 bg-amber-500 text-slate-950 text-xs font-bold px-2 py-1 rounded-md">⭐ ${rating}</span>
+                                </div>
+                                <div class="p-5 flex-grow flex flex-col justify-between">
+                                    <div>
+                                        <span class="text-xs text-blue-600 font-bold bg-blue-50 px-2 py-0.5 rounded">${cat}</span>
+                                        <h4 class="font-bold text-slate-900 text-lg mt-2">${name}</h4>
+                                        <p class="text-xs text-slate-500 mt-1">محافظة السويس - توصيل سريع</p>
+                                    </div>
+                                    <div class="mt-6">
+                                        <button onclick="openShop('${name}', '${cat}')" class="w-full text-center bg-slate-900 hover:bg-blue-600 text-white py-2.5 rounded-xl font-bold text-sm transition">دخول المحل والرفوف</button>
+                                    </div>
+                                </div>
+                            </div>`);
+                        }
+                    </script>
+                </div>
+            </section>
+
+            <!-- Subscriptions Section (Narrower & Updated Prices, Year Closed) -->
+            <section id="subscriptions" class="bg-slate-100 py-16 px-4 mt-12 border-t border-slate-200">
+                <div class="container mx-auto max-w-4xl text-center">
+                    <h3 class="text-2xl sm:text-3xl font-black text-slate-900 mb-2">باقات الاشتراك المتاحة للتجار</h3>
+                    <p class="text-slate-600 text-sm mb-10">اختر الباقة المناسبة لنشاطك التجاري وضاعف مبيعاتك اليوم</p>
+
+                    <!-- Flex container tightened with max-w-3xl -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-3xl mx-auto">
+                        
+                        <!-- 1. باقة 6 أشهر -->
+                        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                            <div>
+                                <h4 class="text-lg font-bold text-slate-900 mb-1">باقة 6 أشهر</h4>
+                                <div class="text-2xl font-black text-slate-900 my-3">5500 <span class="text-xs font-normal text-slate-500">ج.م</span></div>
+                                <ul class="text-right text-xs text-slate-700 space-y-2.5 mb-6">
+                                    <li><i class="fa-solid fa-check text-emerald-500 ml-1.5"></i> ظهور مميز</li>
+                                    <li><i class="fa-solid fa-check text-emerald-500 ml-1.5"></i> دعم فني مستمر</li>
+                                </ul>
+                            </div>
+                            <a href="https://wa.me/201000000000?text=أرغب%20في%20الاشتراك%20بباقة%206%20أشهر" target="_blank" class="bg-slate-900 hover:bg-blue-600 text-white py-2.5 rounded-xl font-bold text-xs transition block text-center">اشترك الآن</a>
+                        </div>
+
+                        <!-- 2. باقة 3 أشهر (الأكثر طلباً) -->
+                        <div class="bg-white p-6 rounded-3xl shadow-sm border-2 border-amber-500 flex flex-col justify-between relative">
+                            <span class="absolute -top-3 right-1/2 transform translate-x-1/2 bg-amber-500 text-slate-950 text-xs font-bold px-3 py-0.5 rounded-full shadow">الأكثر طلباً</span>
+                            <div>
+                                <h4 class="text-lg font-bold text-slate-900 mb-1">باقة 3 أشهر</h4>
+                                <div class="text-2xl font-black text-amber-600 my-3">1350 <span class="text-xs font-normal text-slate-500">ج.م</span></div>
+                                <ul class="text-right text-xs text-slate-700 space-y-2.5 mb-6">
+                                    <li><i class="fa-solid fa-check text-emerald-500 ml-1.5"></i> صفحة متكاملة</li>
+                                    <li><i class="fa-solid fa-check text-emerald-500 ml-1.5"></i> منتجات غير محدودة</li>
+                                </ul>
+                            </div>
+                            <a href="https://wa.me/201000000000?text=أرغب%20في%20الاشتراك%20بباقة%203%20أشهر" target="_blank" class="bg-amber-500 hover:bg-amber-600 text-slate-950 py-2.5 rounded-xl font-bold text-xs transition block text-center">اشترك الآن</a>
+                        </div>
+
+                        <!-- 3. باقة الشهر -->
+                        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                            <div>
+                                <h4 class="text-lg font-bold text-slate-900 mb-1">باقة الشهر</h4>
+                                <div class="text-2xl font-black text-slate-900 my-3">500 <span class="text-xs font-normal text-slate-500">جنيه / شهرياً</span></div>
+                                <ul class="text-right text-xs text-slate-700 space-y-2.5 mb-6">
+                                    <li><i class="fa-solid fa-check text-emerald-500 ml-1.5"></i> صفحة خاصة للمحل</li>
+                                    <li><i class="fa-solid fa-check text-emerald-500 ml-1.5"></i> زر واتساب مباشر</li>
+                                </ul>
+                            </div>
+                            <a href="https://wa.me/201000000000?text=أرغب%20في%20الاشتراك%20بباقة%20الشهر" target="_blank" class="bg-slate-900 hover:bg-blue-600 text-white py-2.5 rounded-xl font-bold text-xs transition block text-center">اشترك الآن</a>
+                        </div>
+
+                    </div>
+
+                    <!-- Payment methods bar matching screenshot -->
+                    <div class="mt-10 bg-white p-4 rounded-2xl shadow-sm border border-slate-200 max-w-xl mx-auto flex flex-wrap items-center justify-center gap-4 text-xs font-bold text-slate-700">
+                        <span>طرق دفع الاشتراكات المتاحة:</span>
+                        <span class="bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200 flex items-center gap-1 text-red-600"><i class="fa-solid fa-wallet"></i> فودافون كاش</span>
+                        <span class="bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200 flex items-center gap-1 text-blue-600"><i class="fa-solid fa-building-columns"></i> انستاباي (InstaPay)</span>
+                        <span class="bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200 flex items-center gap-1 text-amber-600"><i class="fa-brands fa-cc-visa"></i> Visa</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= VIEW 2: SHOP INTERIOR ================= -->
+        <div id="view-shop" class="hidden">
+            <section class="bg-gradient-to-r from-blue-900 to-slate-900 text-white py-12 px-4 text-center">
+                <div class="container mx-auto max-w-4xl">
+                    <div class="w-24 h-24 bg-white text-slate-900 rounded-2xl mx-auto flex items-center justify-center text-4xl font-black shadow-xl mb-4">
+                        <i class="fa-solid fa-store"></i>
+                    </div>
+                    <h2 id="display-shop-name" class="text-3xl font-black mb-2">اسم المحل التجاري</h2>
+                    <p id="display-shop-cat" class="text-amber-400 font-semibold mb-4 text-sm">التصنيف الرئيسي</p>
+                    <p class="text-slate-300 text-sm max-w-xl mx-auto mb-6">مرحباً بكم في متجرنا بالسويس. نقدم أفضل المنتجات والسلع والخدمات مع إمكانية التوصيل السريع والطلب المباشر عبر الواتساب.</p>
+                    
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="https://wa.me/201000000000" target="_blank" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-2xl font-bold transition shadow-lg text-base">
+                            <i class="fa-brands fa-whatsapp text-xl"></i> تواصل مع المحل عبر الواتساب مباشرة
+                        </a>
+                        <button onclick="toggleMerchantPanel()" class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 px-6 py-3 rounded-2xl font-bold transition shadow-lg text-base">
+                            <i class="fa-solid fa-gear"></i> لوحة تحكم التاجر
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Merchant Dashboard Panel -->
+            <div id="merchant-panel" class="hidden bg-slate-800 text-white py-8 px-4 border-b border-slate-700">
+                <div class="container mx-auto max-w-4xl">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-bold text-amber-400"><i class="fa-solid fa-sliders ml-2"></i> لوحة تحكم التاجر الخاصة بالمحل (محمية)</h3>
+                        <button onclick="toggleMerchantPanel()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700">
+                            <span class="text-xs text-slate-400">إجمالي المنتجات</span>
+                            <h4 class="text-2xl font-bold text-white mt-1">10 منتجات</h4>
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700">
+                            <span class="text-xs text-slate-400">الأقسام والرفوف</span>
+                            <h4 class="text-2xl font-bold text-white mt-1">10 رفوف نشطة</h4>
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700">
+                            <span class="text-xs text-slate-400">عروض الخصومات الفعالة</span>
+                            <h4 class="text-2xl font-bold text-amber-400 mt-1">5 عروض</h4>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="secureAction('add-prod', () => saveSecureData('last_action', 'added_product'))" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-4 py-2 rounded-lg text-sm font-bold transition">إضافة منتج جديد</button>
+                        <button onclick="secureAction('save-shelves', () => alert('تم حفظ إعدادات الرفوف بأمان'))" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-sm font-bold transition">ترتيب الرفوف (10 أقسام)</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 10 Store Shelves Section -->
+            <section class="container mx-auto px-4 py-12">
+                <h3 class="text-2xl font-black text-slate-900 mb-2">أقسام ورفوف المحل (10 رفوف)</h3>
+                <p class="text-slate-600 text-sm mb-8">تصفح أقسام وعروض المتجر الداخلية المنظمة بدقة</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 mb-12">
+                    <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl text-center shadow-sm">
+                        <div class="text-amber-600 text-2xl mb-2"><i class="fa-solid fa-tags"></i></div>
+                        <h4 class="font-bold text-slate-900 text-sm">قسم العروض (1)</h4>
+                        <p class="text-xs text-slate-500 mt-1">تخفيضات كبرى</p>
+                    </div>
+                    <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl text-center shadow-sm">
+                        <div class="text-amber-600 text-2xl mb-2"><i class="fa-solid fa-percent"></i></div>
+                        <h4 class="font-bold text-slate-900 text-sm">قسم العروض (2)</h4>
+                        <p class="text-xs text-slate-500 mt-1">لفترة محدودة</p>
+                    </div>
+                    <script>
+                        for(let s = 3; s <= 10; s++) {
+                            document.write(`
+                            <div class="bg-white border border-slate-200 p-4 rounded-2xl text-center shadow-sm">
+                                <div class="text-blue-600 text-2xl mb-2"><i class="fa-solid fa-box-archive"></i></div>
+                                <h4 class="font-bold text-slate-900 text-sm">رف رقم (${s})</h4>
+                                <p class="text-xs text-slate-500 mt-1">منتجات عالية الجودة</p>
+                            </div>`);
+                        }
+                    </script>
+                </div>
+
+                <!-- 10 Products -->
+                <h3 class="text-2xl font-black text-slate-900 mb-2">منتجات مميزة للعرض (10 منتجات)</h3>
+                <p class="text-slate-600 text-sm mb-8">تشكيلة مختارة بعناية مع أسعار خاصة وخصومات حصرية (5 منتجات مخفضة)</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                    <script>
+                        for(let p = 1; p <= 10; p++) {
+                            let isDisc = p <= 5;
+                            let priceHTML = isDisc ? 
+                                `<div class="flex items-center justify-center gap-2 mt-2"><span class="text-xs text-slate-400 line-through">150 ج.م</span><span class="text-lg font-black text-red-600">100 ج.م</span></div>` :
+                                `<div class="mt-2"><span class="text-lg font-black text-slate-900">120 ج.م</span></div>`;
+                            let badgeHTML = isDisc ? `<span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded">خصم حصري</span>` : '';
+
+                            document.write(`
+                            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex flex-col justify-between relative">
+                                ${badgeHTML}
+                                <div class="bg-slate-100 h-32 flex items-center justify-center text-slate-400"><i class="fa-solid fa-box text-3xl"></i></div>
+                                <div class="p-4 flex-grow flex flex-col justify-between">
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 text-sm">منتج رقم (${p})</h4>
+                                        <p class="text-xs text-slate-500 mt-1">ضمان معتمد بالسويس</p>
+                                    </div>
+                                    <div class="mt-4">
+                                        ${priceHTML}
+                                        <a href="https://wa.me/201000000000?text=أرغب%20في%20طلب%20المنتج%20رقم%20(${p})" target="_blank" class="mt-3 block text-center bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded-xl font-bold text-xs transition">
+                                            <i class="fa-brands fa-whatsapp ml-1"></i> اطلب الآن
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>`);
+                        }
+                    </script>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="bg-slate-950 text-white pt-12 pb-6 px-4 mt-auto">
+        <div class="container mx-auto max-w-6xl">
+            <!-- Social Icons Row -->
+            <div class="flex justify-center space-x-6 space-x-reverse mb-10">
+                <a href="#" class="w-12 h-12 bg-slate-900 hover:bg-blue-600 rounded-full flex items-center justify-center text-white text-xl transition shadow"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#" class="w-12 h-12 bg-slate-900 hover:bg-pink-600 rounded-full flex items-center justify-center text-white text-xl transition shadow"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="w-12 h-12 bg-slate-900 hover:bg-blue-700 rounded-full flex items-center justify-center text-white text-xl transition shadow"><i class="fa-brands fa-facebook-f"></i></a>
+            </div>
+
+            <!-- Footer 3 Columns -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-right border-b border-slate-800 pb-10">
+                <!-- Column 3: تواصل معنا -->
+                <div>
+                    <h4 class="text-amber-400 font-bold text-lg mb-4 border-r-4 border-amber-500 pr-3">تواصل معنا</h4>
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-amber-500"></i> السويس، جمهورية مصر العربية</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-amber-500"></i> 0155xxxxxxx</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-amber-500"></i> info@mazharali.com</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-clock text-amber-500"></i> الأحد - الخميس: 9 ص - 11 م</li>
+                    </ul>
+                </div>
+
+                <!-- Column 2: روابط هامة -->
+                <div>
+                    <h4 class="text-amber-400 font-bold text-lg mb-4 border-r-4 border-amber-500 pr-3">روابط هامة</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="#" class="hover:text-amber-400 transition">حسابي</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">سياسة الإرجاع</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">شروط الاستخدام</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">سياسة الخصوصية</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">الدعم الفني</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 1: أقسام الموقع -->
+                <div>
+                    <h4 class="text-amber-400 font-bold text-lg mb-4 border-r-4 border-amber-500 pr-3">أقسام الموقع</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="#" onclick="showHome()" class="hover:text-amber-400 transition">الرئيسية</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">عن الموقع</a></li>
+                        <li><a href="#subscriptions" class="hover:text-amber-400 transition">الباقات</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">العروض والخصومات</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">خدمة العملاء</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="text-xs text-slate-500 text-center pt-6">
+                <p>© 2026 سوق السويس، جميع الحقوق محفوظة.</p>
+                <p class="mt-1 text-slate-600">تصميم شركة سوق المدينة | البريد الإلكتروني الأساسي: city89229@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Security & Core Scripts -->
+    <script>
+        function secureSearchInput(inputElement) {
+            let cleanValue = inputElement.value.replace(/[<>]/g, ""); 
+            inputElement.value = cleanValue;
+        }
+
+        const actionLocks = {};
+        function secureAction(actionId, callback) {
+            if (actionLocks[actionId]) return; 
+            actionLocks[actionId] = true;
+            try {
+                callback();
+            } finally {
+                setTimeout(() => {
+                    actionLocks[actionId] = false;
+                }, 800); 
+            }
+        }
+
+        function saveSecureData(key, value) {
+            try {
+                const encryptedLikeValue = btoa(encodeURIComponent(JSON.stringify(value))); 
+                localStorage.setItem('sec_' + key, encryptedLikeValue);
+            } catch (e) {}
+        }
+
+        function showHome() {
+            secureAction('nav-home', () => {
+                document.getElementById('view-shop').classList.add('hidden');
+                document.getElementById('view-home').classList.remove('hidden');
+                window.scrollTo(0, 0);
+            });
+        }
+
+        function openShop(name, cat) {
+            secureAction('open-shop', () => {
+                document.getElementById('display-shop-name').innerText = name;
+                document.getElementById('display-shop-cat').innerText = cat;
+                document.getElementById('view-home').classList.add('hidden');
+                document.getElementById('view-shop').classList.remove('hidden');
+                window.scrollTo(0, 0);
+            });
+        }
+
+        function toggleMerchantPanel() {
+            secureAction('toggle-panel', () => {
+                const panel = document.getElementById('merchant-panel');
+                panel.classList.toggle('hidden');
+            });
+        }
+    </script>
+</body>
+</html>
