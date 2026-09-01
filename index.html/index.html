@@ -7,33 +7,60 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
-        body { font-family: 'Cairo', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap');
+        * { font-family: 'Cairo', sans-serif; }
+        body { background-color: #f7f5f0; color: #1c1917; }
+
+        /* ألوان الهوية الجديدة - أخضر السويس البحري + ذهبي دافئ */
+        :root {
+            --brand-deep: #0b3d3a;   /* أخضر بحري غامق */
+            --brand-mid: #0f5c56;    /* أخضر بحري */
+            --brand-gold: #d4a537;   /* ذهبي دافئ */
+            --brand-gold-light: #e8c565;
+        }
+        .bg-brand-deep { background-color: var(--brand-deep); }
+        .bg-brand-mid { background-color: var(--brand-mid); }
+        .text-brand-gold { color: var(--brand-gold); }
+        .bg-brand-gold { background-color: var(--brand-gold); }
+        .border-brand-gold { border-color: var(--brand-gold); }
+
+        .hero-pattern {
+            background-image: radial-gradient(circle at 20% 20%, rgba(212,165,55,0.10) 0%, transparent 40%),
+                               radial-gradient(circle at 80% 60%, rgba(212,165,55,0.08) 0%, transparent 45%);
+        }
+        .card-hover { transition: transform .25s ease, box-shadow .25s ease; }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 30px -8px rgba(11,61,58,0.18); }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5c9; border-radius: 10px; }
+
+        .skeleton { background: linear-gradient(90deg,#eee 25%,#f5f5f5 37%,#eee 63%); background-size: 400% 100%; animation: shimmer 1.4s infinite; }
+        @keyframes shimmer { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col">
 
     <!-- Global Header -->
-    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
+    <header class="bg-brand-deep text-white shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex flex-wrap justify-between items-center">
             <div class="flex items-center space-x-3 space-x-reverse cursor-pointer" onclick="showHome()">
-                <div class="bg-amber-500 text-slate-950 p-2 rounded-lg font-black text-xl flex items-center justify-center">
+                <div class="bg-brand-gold text-brand-deep p-2.5 rounded-xl font-black text-xl flex items-center justify-center shadow-md">
                     <i class="fa-solid fa-store"></i>
                 </div>
                 <div>
-                    <h1 class="text-lg font-bold tracking-wide">سوق السويس الإلكتروني</h1>
-                    <p class="text-xs text-slate-400">تصميم شركة سوق المدينة</p>
+                    <h1 class="text-lg font-black tracking-wide">سوق السويس الإلكتروني</h1>
+                    <p class="text-[11px] text-emerald-200/70">تصميم شركة سوق المدينة للتسويق</p>
                 </div>
             </div>
-            
+
             <div id="header-nav" class="flex items-center space-x-3 space-x-reverse mt-2 sm:mt-0">
-                <a href="https://wa.me/201000000000?text=أرغب%20في%20الانضمام%20كتاجر%20في%20سوق%20السويس" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-sm font-bold transition flex items-center gap-2 shadow">
+                <a href="https://wa.me/201000000000?text=أرغب%20في%20الانضمام%20كتاجر%20في%20سوق%20السويس" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl text-sm font-bold transition flex items-center gap-2 shadow">
                     <span>انضم كتاجر</span>
                     <i class="fa-brands fa-whatsapp text-lg"></i>
                 </a>
-                <button onclick="secureAction('login-modal', () => alert('نافذة تسجيل الدخول / اشتراك'))" class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 px-4 py-2 rounded-xl text-sm font-bold transition flex items-center gap-2 shadow">
+                <button onclick="openAuthModal('login')" class="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-4 py-2 rounded-xl text-sm font-bold transition flex items-center gap-2 shadow backdrop-blur-sm">
                     <span>تسجيل الدخول / اشتراك</span>
-                    <i class="fa-solid fa-user text-amber-500"></i>
+                    <i class="fa-solid fa-user text-brand-gold"></i>
                 </button>
             </div>
         </div>
@@ -41,41 +68,50 @@
 
     <!-- MAIN CONTAINER -->
     <main class="flex-grow">
-        
+
         <!-- ================= VIEW 1: HOME PAGE ================= -->
         <div id="view-home">
             <!-- Hero Section -->
-            <section class="bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white py-16 px-4 text-center">
-                <div class="container mx-auto max-w-4xl">
+            <section class="hero-pattern bg-gradient-to-br from-[#0b3d3a] via-[#0f5c56] to-[#0b3d3a] text-white py-20 px-4 text-center relative overflow-hidden">
+                <div class="container mx-auto max-w-4xl relative z-10">
+                    <span class="inline-block bg-white/10 border border-white/20 text-brand-gold text-xs font-bold px-4 py-1.5 rounded-full mb-5 backdrop-blur-sm">
+                        <i class="fa-solid fa-location-dot ml-1"></i> محافظة السويس
+                    </span>
                     <h2 class="text-3xl sm:text-5xl font-black mb-6 leading-tight">أهلاً وسهلاً بكم في سوق السويس الإلكتروني</h2>
-                    <p class="text-lg sm:text-xl text-slate-300 mb-4 leading-relaxed">وجهتك الأولى لتسوق الأنشطة التجارية والمحلات في محافظة السويس مباشرة عبر الواتساب.</p>
-                    <p class="text-base sm:text-lg text-amber-400 font-semibold mb-8">ابحث عن متجرك المناسب او المنتج المناسب او السلعه المناسبه او الخدمه المناسبه بضغطه زر واحده.</p>
-                    
-                    <div class="bg-white p-2 rounded-2xl shadow-xl flex flex-col sm:flex-row gap-2 max-w-2xl mx-auto">
+                    <p class="text-lg sm:text-xl text-emerald-50/90 mb-4 leading-relaxed">وجهتك الأولى لتسوق الأنشطة التجارية والمحلات في محافظة السويس مباشرة عبر الواتساب.</p>
+                    <p class="text-base sm:text-lg text-brand-gold font-semibold mb-8">ابحث عن متجرك المناسب او المنتج المناسب او السلعه المناسبه او الخدمه المناسبه بضغطه زر واحده.</p>
+
+                    <div class="bg-white p-2 rounded-2xl shadow-2xl flex flex-col sm:flex-row gap-2 max-w-2xl mx-auto">
                         <div class="flex-grow flex items-center px-3 py-2 bg-slate-100 rounded-xl">
                             <i class="fa-solid fa-search text-slate-400 ml-2"></i>
                             <input type="text" id="main-search" oninput="secureSearchInput(this)" placeholder="ابحث عن محل، منتج، خدمة، أو سلعة..." class="bg-transparent w-full focus:outline-none text-slate-800 text-sm">
                         </div>
-                        <button onclick="secureAction('search', () => alert('جارٍ البحث الآمن...'))" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold transition">بحث سريع</button>
+                        <button onclick="secureAction('search', () => alert('جارٍ البحث الآمن...'))" class="bg-brand-gold hover:bg-brand-gold-light text-brand-deep px-6 py-3 rounded-xl font-bold transition shadow">بحث سريع</button>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-6 mt-10 text-emerald-50/80 text-xs sm:text-sm">
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-shop text-brand-gold"></i> 50 متجراً معتمداً</div>
+                        <div class="flex items-center gap-2"><i class="fa-brands fa-whatsapp text-brand-gold"></i> طلب مباشر بالواتساب</div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-brand-gold"></i> تسوق آمن وموثوق</div>
                     </div>
                 </div>
             </section>
 
-            <!-- Special Ads Section (New requested section) -->
-            <section class="bg-amber-50/60 py-12 px-4 border-y border-amber-100">
+            <!-- Special Ads Section -->
+            <section class="bg-amber-50/50 py-12 px-4 border-y border-amber-100">
                 <div class="container mx-auto max-w-4xl text-center">
-                    <div class="inline-block bg-amber-500 text-slate-950 text-xs font-bold px-4 py-1.5 rounded-full shadow-sm mb-3">
+                    <div class="inline-block bg-brand-gold text-brand-deep text-xs font-bold px-4 py-1.5 rounded-full shadow-sm mb-3">
                         <i class="fa-solid fa-bullhorn ml-1"></i> إعلانات مميزة
                     </div>
                     <h3 class="text-2xl sm:text-3xl font-black text-slate-900 mb-2">قسم الإعلانات الخاصة والعروض الكبرى</h3>
                     <p class="text-slate-600 text-sm mb-8">مساحة إعلانية مخصصة لشركائنا لإبراز أقوى العروض والخصومات الحصرية لأهالي السويس.</p>
 
-                    <div class="bg-white border-2 border-amber-400 p-6 rounded-3xl shadow-md max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-right">
+                    <div class="bg-white border-2 border-brand-gold p-6 rounded-3xl shadow-md max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-right">
                         <div>
                             <h4 class="text-lg font-black text-slate-900 mb-1">مهرجان التخفيضات الكبرى في السويس</h4>
                             <p class="text-xs text-slate-500">احصل على خصم إضافي عند إشارتك لموقع "سوق السويس الرقمي"</p>
                         </div>
-                        <a href="https://wa.me/201000000000?text=أرغب%20في%20الاعلان%20في%20قسم%20العروض%20الكبرى" target="_blank" class="bg-slate-900 hover:bg-amber-500 hover:text-slate-950 text-white px-6 py-3 rounded-xl text-xs font-bold transition shadow whitespace-nowrap">
+                        <a href="https://wa.me/201000000000?text=أرغب%20في%20الاعلان%20في%20قسم%20العروض%20الكبرى" target="_blank" class="bg-brand-deep hover:bg-brand-gold hover:text-brand-deep text-white px-6 py-3 rounded-xl text-xs font-bold transition shadow whitespace-nowrap">
                             اعلن معنا
                         </a>
                     </div>
@@ -83,49 +119,49 @@
             </section>
 
             <!-- Categories Section -->
-            <section class="container mx-auto px-4 py-12">
+            <section class="container mx-auto px-4 py-14">
                 <div class="text-center mb-10">
                     <h3 class="text-2xl font-black text-slate-900 mb-2">دليل محلات وتجار السويس</h3>
                     <p class="text-slate-600 text-sm">اختر القسم المناسب لتتصفح مئات المتاجر والخدمات المتنوعة</p>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div onclick="secureAction('cat-1', () => alert('تم اختيار القسم بنجاح'))" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition cursor-pointer border border-slate-100 flex items-center space-x-4 space-x-reverse group">
+                    <div onclick="secureAction('cat-1', () => alert('تم اختيار القسم بنجاح'))" class="card-hover bg-white p-6 rounded-2xl shadow-sm border border-slate-100 cursor-pointer flex items-center space-x-4 space-x-reverse group">
                         <div class="bg-blue-50 text-blue-600 p-4 rounded-xl text-xl group-hover:bg-blue-600 group-hover:text-white transition"><i class="fa-solid fa-laptop"></i></div>
                         <div>
                             <h4 class="font-bold text-slate-800 text-lg">إلكترونيات وأجهزة كهربائية وصيانة</h4>
                             <p class="text-xs text-slate-500 mt-1">شاشات، هواتف، أجهزة منزلية، قطع غيار</p>
                         </div>
                     </div>
-                    <div onclick="secureAction('cat-2', () => alert('تم اختيار القسم بنجاح'))" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition cursor-pointer border border-slate-100 flex items-center space-x-4 space-x-reverse group">
+                    <div onclick="secureAction('cat-2', () => alert('تم اختيار القسم بنجاح'))" class="card-hover bg-white p-6 rounded-2xl shadow-sm border border-slate-100 cursor-pointer flex items-center space-x-4 space-x-reverse group">
                         <div class="bg-pink-50 text-pink-600 p-4 rounded-xl text-xl group-hover:bg-pink-600 group-hover:text-white transition"><i class="fa-solid fa-shirt"></i></div>
                         <div>
                             <h4 class="font-bold text-slate-800 text-lg">ملابس وموضة وأحذية</h4>
                             <p class="text-xs text-slate-500 mt-1">أزياء رجالية، نسائية، أطفال، أحذية وإكسسوارات</p>
                         </div>
                     </div>
-                    <div onclick="secureAction('cat-3', () => alert('تم اختيار القسم بنجاح'))" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition cursor-pointer border border-slate-100 flex items-center space-x-4 space-x-reverse group">
+                    <div onclick="secureAction('cat-3', () => alert('تم اختيار القسم بنجاح'))" class="card-hover bg-white p-6 rounded-2xl shadow-sm border border-slate-100 cursor-pointer flex items-center space-x-4 space-x-reverse group">
                         <div class="bg-emerald-50 text-emerald-600 p-4 rounded-xl text-xl group-hover:bg-emerald-600 group-hover:text-white transition"><i class="fa-solid fa-basket-shopping"></i></div>
                         <div>
                             <h4 class="font-bold text-slate-800 text-lg">مواد غذائية وسوبر ماركت وعطارة وأسماك</h4>
                             <p class="text-xs text-slate-500 mt-1">سلع تموينية، أسماك طازجة، عطارة، خضروات</p>
                         </div>
                     </div>
-                    <div onclick="secureAction('cat-4', () => alert('تم اختيار القسم بنجاح'))" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition cursor-pointer border border-slate-100 flex items-center space-x-4 space-x-reverse group">
+                    <div onclick="secureAction('cat-4', () => alert('تم اختيار القسم بنجاح'))" class="card-hover bg-white p-6 rounded-2xl shadow-sm border border-slate-100 cursor-pointer flex items-center space-x-4 space-x-reverse group">
                         <div class="bg-amber-50 text-amber-600 p-4 rounded-xl text-xl group-hover:bg-amber-600 group-hover:text-white transition"><i class="fa-solid fa-couch"></i></div>
                         <div>
                             <h4 class="font-bold text-slate-800 text-lg">أثاث وديكور ومفروشات</h4>
                             <p class="text-xs text-slate-500 mt-1">غرف نوم، مجالس، ديكورات، مفروشات منزلية</p>
                         </div>
                     </div>
-                    <div onclick="secureAction('cat-5', () => alert('تم اختيار القسم بنجاح'))" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition cursor-pointer border border-slate-100 flex items-center space-x-4 space-x-reverse group">
+                    <div onclick="secureAction('cat-5', () => alert('تم اختيار القسم بنجاح'))" class="card-hover bg-white p-6 rounded-2xl shadow-sm border border-slate-100 cursor-pointer flex items-center space-x-4 space-x-reverse group">
                         <div class="bg-violet-50 text-violet-600 p-4 rounded-xl text-xl group-hover:bg-violet-600 group-hover:text-white transition"><i class="fa-solid fa-car"></i></div>
                         <div>
                             <h4 class="font-bold text-slate-800 text-lg">خدمات ومستلزمات سيارات ودراجات</h4>
                             <p class="text-xs text-slate-500 mt-1">قطع غيار، زيوت، إكسسوارات، صيانة سيارات</p>
                         </div>
                     </div>
-                    <div onclick="secureAction('cat-6', () => alert('تم اختيار القسم بنجاح'))" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition cursor-pointer border border-slate-100 flex items-center space-x-4 space-x-reverse group">
+                    <div onclick="secureAction('cat-6', () => alert('تم اختيار القسم بنجاح'))" class="card-hover bg-white p-6 rounded-2xl shadow-sm border border-slate-100 cursor-pointer flex items-center space-x-4 space-x-reverse group">
                         <div class="bg-cyan-50 text-cyan-600 p-4 rounded-xl text-xl group-hover:bg-cyan-600 group-hover:text-white transition"><i class="fa-solid fa-screwdriver-wrench"></i></div>
                         <div>
                             <h4 class="font-bold text-slate-800 text-lg">خدمات عامة ومهنية (صيانة منزلية، مقاولات)</h4>
@@ -135,92 +171,74 @@
                 </div>
             </section>
 
-            <!-- Shops Section (75 Shops) -->
-            <section id="shops-section" class="container mx-auto px-4 py-8">
-                <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 border-b border-slate-200 pb-4">
-                    <h3 class="text-2xl font-black text-slate-900">محلات السويس المتاحة (75 متجراً معتمداً)</h3>
-                    <div class="flex flex-wrap gap-2 text-sm">
-                        <span class="bg-slate-900 text-white px-4 py-2 rounded-lg font-bold">الكل (75)</span>
-                        <span class="bg-white text-slate-700 border border-slate-200 px-4 py-2 rounded-lg font-bold">المميزة</span>
-                        <span class="bg-white text-slate-700 border border-slate-200 px-4 py-2 rounded-lg font-bold">الأعلى تقييماً</span>
+            <!-- Shipping & Delivery Partners -->
+            <section class="bg-slate-50 border-y border-slate-100 py-14 px-4">
+                <div class="container mx-auto">
+                    <div class="text-center mb-10">
+                        <h3 class="text-2xl font-black text-slate-900 mb-2">شركات الشحن والدليفري المتعاونة معنا</h3>
+                        <p class="text-slate-600 text-sm">اختر شركة الشحن المناسبة لتوصيل طلباتك بسرعة وأمان داخل السويس وخارجها</p>
                     </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <script>
-                        const shopNames = [
-                            'محل السويس للكمبيوتر', 'تكنو ستور السويس', 'معرض النور للأجهزة', 'مجموعة الاستقامة التجارية', 
-                            'عطارة الشفاء المباركة', 'سوبر ماركت الفيروز', 'مكتبة ومكتب أدوات', 'ملابس الأجيال', 
-                            'أحذية المنهج الحديث', 'أثاث دمياط فرع السويس', 'سنتر الأمل للتسوق', 'محل الشروق للكهرباء',
-                            'معرض الوادي للأثاث', 'عطارة الإخلاص', 'سوبر ماركت النيل', 'مكتبة الفجر الحديثة'
-                        ];
-                        const cats = ['إلكترونيات', 'ملابس', 'مواد غذائية', 'أثاث', 'سيارات', 'خدمات عامة', 'عطارة وأسماك'];
-                        
-                        // Loop to generate exactly 75 shops
-                        for (let i = 1; i <= 75; i++) {
-                            let name = shopNames[(i - 1) % shopNames.length] + ' (' + i + ')';
-                            let cat = cats[(i - 1) % cats.length];
-                            let rating = (4.0 + ((i % 7) * 0.1)).toFixed(1);
-                            document.write(`
-                            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition overflow-hidden flex flex-col">
-                                <div class="bg-slate-200 h-36 flex items-center justify-center text-slate-400 relative">
-                                    <i class="fa-solid fa-store text-4xl"></i>
-                                    <span class="absolute top-3 right-3 bg-amber-500 text-slate-950 text-xs font-bold px-2 py-1 rounded-md">⭐ ${rating}</span>
-                                </div>
-                                <div class="p-5 flex-grow flex flex-col justify-between">
-                                    <div>
-                                        <span class="text-xs text-blue-600 font-bold bg-blue-50 px-2 py-0.5 rounded">${cat}</span>
-                                        <h4 class="font-bold text-slate-900 text-lg mt-2">${name}</h4>
-                                        <p class="text-xs text-slate-500 mt-1">محافظة السويس - توصيل سريع</p>
-                                    </div>
-                                    <div class="mt-6">
-                                        <button onclick="openShop('${name}', '${cat}')" class="w-full text-center bg-slate-900 hover:bg-blue-600 text-white py-2.5 rounded-xl font-bold text-sm transition">دخول المحل والرفوف</button>
-                                    </div>
-                                </div>
-                            </div>`);
-                        }
-                    </script>
+                    <div id="shipping-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                        <!-- تتولد شركات الشحن ديناميكيًا عبر renderShippingCompanies -->
+                    </div>
                 </div>
             </section>
 
-            <!-- Subscriptions Section (Narrower & Updated Prices, Year Closed) -->
+            <!-- Shops Section (50 Shops) -->
+            <section id="shops-section" class="container mx-auto px-4 py-8">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 border-b border-slate-200 pb-4">
+                    <h3 class="text-2xl font-black text-slate-900">محلات السويس المتاحة (50 متجراً معتمداً)</h3>
+                    <div class="flex flex-wrap gap-2 text-sm">
+                        <span class="bg-brand-deep text-white px-4 py-2 rounded-lg font-bold">الكل (50)</span>
+                        <span class="bg-white text-slate-700 border border-slate-200 px-4 py-2 rounded-lg font-bold hover:bg-slate-50 cursor-pointer transition">المميزة</span>
+                        <span class="bg-white text-slate-700 border border-slate-200 px-4 py-2 rounded-lg font-bold hover:bg-slate-50 cursor-pointer transition">الأعلى تقييماً</span>
+                        <span class="bg-white text-slate-700 border border-slate-200 px-4 py-2 rounded-lg font-bold hover:bg-slate-50 cursor-pointer transition"><i class="fa-solid fa-hand-sparkles ml-1 text-amber-500"></i> هاند ميد</span>
+                        <span class="bg-white text-slate-700 border border-slate-200 px-4 py-2 rounded-lg font-bold hover:bg-slate-50 cursor-pointer transition"><i class="fa-solid fa-wifi ml-1 text-blue-500"></i> أونلاين</span>
+                    </div>
+                </div>
+
+                <div id="shops-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- تتولد المحلات هنا ديناميكيًا عبر JavaScript (renderShops) بدل document.write -->
+                </div>
+            </section>
+
+            <!-- Subscriptions Section -->
             <section id="subscriptions" class="bg-slate-100 py-16 px-4 mt-12 border-t border-slate-200">
                 <div class="container mx-auto max-w-4xl text-center">
                     <h3 class="text-2xl sm:text-3xl font-black text-slate-900 mb-2">باقات الاشتراك المتاحة للتجار</h3>
                     <p class="text-slate-600 text-sm mb-10">اختر الباقة المناسبة لنشاطك التجاري وضاعف مبيعاتك اليوم</p>
 
-                    <!-- Flex container tightened with max-w-3xl -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-3xl mx-auto">
-                        
+
                         <!-- 1. باقة 6 أشهر -->
-                        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                        <div class="card-hover bg-white p-6 rounded-3xl shadow-sm border border-slate-200 flex flex-col justify-between">
                             <div>
                                 <h4 class="text-lg font-bold text-slate-900 mb-1">باقة 6 أشهر</h4>
-                                <div class="text-2xl font-black text-slate-900 my-3">5500 <span class="text-xs font-normal text-slate-500">ج.م</span></div>
+                                <div class="text-2xl font-black text-slate-900 my-3">2700 <span class="text-xs font-normal text-slate-500">ج.م</span></div>
                                 <ul class="text-right text-xs text-slate-700 space-y-2.5 mb-6">
                                     <li><i class="fa-solid fa-check text-emerald-500 ml-1.5"></i> ظهور مميز</li>
                                     <li><i class="fa-solid fa-check text-emerald-500 ml-1.5"></i> دعم فني مستمر</li>
                                 </ul>
                             </div>
-                            <a href="https://wa.me/201000000000?text=أرغب%20في%20الاشتراك%20بباقة%206%20أشهر" target="_blank" class="bg-slate-900 hover:bg-blue-600 text-white py-2.5 rounded-xl font-bold text-xs transition block text-center">اشترك الآن</a>
+                            <a href="https://wa.me/201000000000?text=أرغب%20في%20الاشتراك%20بباقة%206%20أشهر" target="_blank" class="bg-brand-deep hover:bg-emerald-700 text-white py-2.5 rounded-xl font-bold text-xs transition block text-center">اشترك الآن</a>
                         </div>
 
                         <!-- 2. باقة 3 أشهر (الأكثر طلباً) -->
-                        <div class="bg-white p-6 rounded-3xl shadow-sm border-2 border-amber-500 flex flex-col justify-between relative">
-                            <span class="absolute -top-3 right-1/2 transform translate-x-1/2 bg-amber-500 text-slate-950 text-xs font-bold px-3 py-0.5 rounded-full shadow">الأكثر طلباً</span>
+                        <div class="card-hover bg-white p-6 rounded-3xl shadow-sm border-2 border-brand-gold flex flex-col justify-between relative">
+                            <span class="absolute -top-3 right-1/2 transform translate-x-1/2 bg-brand-gold text-brand-deep text-xs font-bold px-3 py-0.5 rounded-full shadow">الأكثر طلباً</span>
                             <div>
                                 <h4 class="text-lg font-bold text-slate-900 mb-1">باقة 3 أشهر</h4>
-                                <div class="text-2xl font-black text-amber-600 my-3">1350 <span class="text-xs font-normal text-slate-500">ج.م</span></div>
+                                <div class="text-2xl font-black text-brand-gold my-3">1250 <span class="text-xs font-normal text-slate-500">ج.م</span></div>
                                 <ul class="text-right text-xs text-slate-700 space-y-2.5 mb-6">
                                     <li><i class="fa-solid fa-check text-emerald-500 ml-1.5"></i> صفحة متكاملة</li>
                                     <li><i class="fa-solid fa-check text-emerald-500 ml-1.5"></i> منتجات غير محدودة</li>
                                 </ul>
                             </div>
-                            <a href="https://wa.me/201000000000?text=أرغب%20في%20الاشتراك%20بباقة%203%20أشهر" target="_blank" class="bg-amber-500 hover:bg-amber-600 text-slate-950 py-2.5 rounded-xl font-bold text-xs transition block text-center">اشترك الآن</a>
+                            <a href="https://wa.me/201000000000?text=أرغب%20في%20الاشتراك%20بباقة%203%20أشهر" target="_blank" class="bg-brand-gold hover:bg-brand-gold-light text-brand-deep py-2.5 rounded-xl font-bold text-xs transition block text-center">اشترك الآن</a>
                         </div>
 
                         <!-- 3. باقة الشهر -->
-                        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                        <div class="card-hover bg-white p-6 rounded-3xl shadow-sm border border-slate-200 flex flex-col justify-between">
                             <div>
                                 <h4 class="text-lg font-bold text-slate-900 mb-1">باقة الشهر</h4>
                                 <div class="text-2xl font-black text-slate-900 my-3">500 <span class="text-xs font-normal text-slate-500">جنيه / شهرياً</span></div>
@@ -229,12 +247,11 @@
                                     <li><i class="fa-solid fa-check text-emerald-500 ml-1.5"></i> زر واتساب مباشر</li>
                                 </ul>
                             </div>
-                            <a href="https://wa.me/201000000000?text=أرغب%20في%20الاشتراك%20بباقة%20الشهر" target="_blank" class="bg-slate-900 hover:bg-blue-600 text-white py-2.5 rounded-xl font-bold text-xs transition block text-center">اشترك الآن</a>
+                            <a href="https://wa.me/201000000000?text=أرغب%20في%20الاشتراك%20بباقة%20الشهر" target="_blank" class="bg-brand-deep hover:bg-emerald-700 text-white py-2.5 rounded-xl font-bold text-xs transition block text-center">اشترك الآن</a>
                         </div>
 
                     </div>
 
-                    <!-- Payment methods bar matching screenshot -->
                     <div class="mt-10 bg-white p-4 rounded-2xl shadow-sm border border-slate-200 max-w-xl mx-auto flex flex-wrap items-center justify-center gap-4 text-xs font-bold text-slate-700">
                         <span>طرق دفع الاشتراكات المتاحة:</span>
                         <span class="bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200 flex items-center gap-1 text-red-600"><i class="fa-solid fa-wallet"></i> فودافون كاش</span>
@@ -246,51 +263,87 @@
         </div>
 
         <!-- ================= VIEW 2: SHOP INTERIOR ================= -->
-        <div id="view-shop" class="hidden">
-            <section class="bg-gradient-to-r from-blue-900 to-slate-900 text-white py-12 px-4 text-center">
-                <div class="container mx-auto max-w-4xl">
-                    <div class="w-24 h-24 bg-white text-slate-900 rounded-2xl mx-auto flex items-center justify-center text-4xl font-black shadow-xl mb-4">
-                        <i class="fa-solid fa-store"></i>
-                    </div>
-                    <h2 id="display-shop-name" class="text-3xl font-black mb-2">اسم المحل التجاري</h2>
-                    <p id="display-shop-cat" class="text-amber-400 font-semibold mb-4 text-sm">التصنيف الرئيسي</p>
-                    <p class="text-slate-300 text-sm max-w-xl mx-auto mb-6">مرحباً بكم في متجرنا بالسويس. نقدم أفضل المنتجات والسلع والخدمات مع إمكانية التوصيل السريع والطلب المباشر عبر الواتساب.</p>
-                    
-                    <div class="flex flex-wrap justify-center gap-4">
-                        <a href="https://wa.me/201000000000" target="_blank" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-2xl font-bold transition shadow-lg text-base">
-                            <i class="fa-brands fa-whatsapp text-xl"></i> تواصل مع المحل عبر الواتساب مباشرة
-                        </a>
-                        <button onclick="toggleMerchantPanel()" class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 px-6 py-3 rounded-2xl font-bold transition shadow-lg text-base">
-                            <i class="fa-solid fa-gear"></i> لوحة تحكم التاجر
-                        </button>
+        <div id="view-shop" class="hidden relative">
+            <!-- علامة مائية عائمة صغيرة للعودة إلى الرئيسية (بديل زر العودة الظاهر) -->
+            <button onclick="showHome()" class="fixed bottom-5 left-5 z-40 bg-white/60 hover:bg-white hover:opacity-100 text-brand-deep w-11 h-11 rounded-full shadow-lg flex items-center justify-center text-base opacity-60 transition backdrop-blur-sm" title="العودة إلى الرئيسية">
+                <i class="fa-solid fa-house"></i>
+            </button>
+
+            <!-- الغلاف هو نفسه خلفية اسم المحل وزر الواتساب ودخول التاجر (أسلوب صفحة فيسبوك) -->
+            <section class="relative">
+                <div id="shop-cover" class="min-h-[300px] sm:min-h-[280px] w-full bg-gradient-to-br from-[#0b3d3a] via-[#0f5c56] to-[#0b3d3a] bg-cover bg-center relative overflow-hidden flex flex-col justify-end">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10"></div>
+
+                    <button id="cover-edit-btn" onclick="changeCoverImage()" class="hidden absolute top-4 left-4 bg-white/95 hover:bg-white text-slate-700 px-3 py-2 rounded-xl text-xs font-bold shadow flex items-center gap-1.5 z-20">
+                        <i class="fa-solid fa-camera"></i> تغيير الغلاف
+                    </button>
+
+                    <!-- دخول التاجر: أيقونة صغيرة مقفلة، غير بارزة للزوار العاديين -->
+                    <button id="merchant-entry-btn" onclick="openMerchantPanel()" class="absolute top-4 right-4 w-10 h-10 bg-white/15 hover:bg-white/30 text-white rounded-full flex items-center justify-center shadow z-20 backdrop-blur-sm transition" title="دخول التاجر">
+                        <i class="fa-solid fa-lock text-sm"></i>
+                    </button>
+
+                    <div class="relative z-10 px-4 sm:px-8 pb-7">
+                        <div class="container mx-auto max-w-4xl flex items-end justify-between flex-wrap gap-4">
+                            <!-- اللوجو على اليمين (أول عنصر = أقصى اليمين في RTL) -->
+                            <div class="relative shrink-0">
+                                <div id="shop-logo" class="w-20 h-20 sm:w-24 sm:h-24 bg-white text-brand-deep rounded-3xl flex items-center justify-center text-2xl sm:text-3xl font-black shadow-xl border-4 border-white bg-cover bg-center relative">
+                                    <i id="shop-logo-icon" class="fa-solid fa-store"></i>
+                                    <button id="logo-edit-btn" onclick="changeLogoImage()" class="hidden absolute -bottom-2 -left-2 w-7 h-7 bg-brand-gold hover:bg-brand-gold-light text-brand-deep rounded-full flex items-center justify-center shadow-lg text-xs border-2 border-white">
+                                        <i class="fa-solid fa-camera"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="text-right flex-grow min-w-[200px]">
+                                <h2 id="display-shop-name" class="text-xl sm:text-2xl font-black text-white mb-1">اسم المحل التجاري</h2>
+                                <p id="display-shop-cat" class="text-brand-gold font-semibold text-xs sm:text-sm mb-3">التصنيف الرئيسي</p>
+                                <a href="https://wa.me/201000000000" target="_blank" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 rounded-xl font-bold transition shadow-lg text-sm">
+                                    <i class="fa-brands fa-whatsapp text-lg"></i> تواصل عبر الواتساب
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- Merchant Dashboard Panel -->
-            <div id="merchant-panel" class="hidden bg-slate-800 text-white py-8 px-4 border-b border-slate-700">
+            <div id="merchant-panel" class="hidden bg-slate-900 text-white py-8 px-4 border-b border-slate-800">
                 <div class="container mx-auto max-w-4xl">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-xl font-bold text-amber-400"><i class="fa-solid fa-sliders ml-2"></i> لوحة تحكم التاجر الخاصة بالمحل (محمية)</h3>
+                        <h3 class="text-xl font-bold text-brand-gold"><i class="fa-solid fa-sliders ml-2"></i> لوحة تحكم التاجر الخاصة بالمحل (محمية)</h3>
                         <button onclick="toggleMerchantPanel()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
                     </div>
+
+                    <!-- بطاقة تعريف التاجر: صورة/أيقونة المحل + معلوماته الشخصية بعد تسجيل الدخول -->
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 mb-6 flex items-center gap-4">
+                        <div class="w-16 h-16 bg-brand-gold text-brand-deep rounded-2xl flex items-center justify-center text-2xl font-black shadow shrink-0">
+                            <i class="fa-solid fa-store"></i>
+                        </div>
+                        <div>
+                            <h4 id="merchant-avatar-name" class="font-black text-white text-base">اسم المحل</h4>
+                            <p id="merchant-avatar-cat" class="text-brand-gold text-xs font-bold mt-0.5">التصنيف</p>
+                            <p class="text-slate-400 text-xs mt-1"><i class="fa-brands fa-whatsapp ml-1"></i> <span id="merchant-avatar-phone">-</span></p>
+                        </div>
+                    </div>
+
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700">
+                        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
                             <span class="text-xs text-slate-400">إجمالي المنتجات</span>
                             <h4 class="text-2xl font-bold text-white mt-1">10 منتجات</h4>
                         </div>
-                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700">
+                        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
                             <span class="text-xs text-slate-400">الأقسام والرفوف</span>
                             <h4 class="text-2xl font-bold text-white mt-1">10 رفوف نشطة</h4>
                         </div>
-                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700">
+                        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
                             <span class="text-xs text-slate-400">عروض الخصومات الفعالة</span>
-                            <h4 class="text-2xl font-bold text-amber-400 mt-1">5 عروض</h4>
+                            <h4 class="text-2xl font-bold text-brand-gold mt-1">5 عروض</h4>
                         </div>
                     </div>
                     <div class="flex flex-wrap gap-3">
-                        <button onclick="secureAction('add-prod', () => saveSecureData('last_action', 'added_product'))" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-4 py-2 rounded-lg text-sm font-bold transition">إضافة منتج جديد</button>
-                        <button onclick="secureAction('save-shelves', () => alert('تم حفظ إعدادات الرفوف بأمان'))" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-sm font-bold transition">ترتيب الرفوف (10 أقسام)</button>
+                        <button onclick="addProduct(currentShopName)" class="bg-brand-gold hover:bg-brand-gold-light text-brand-deep px-4 py-2 rounded-lg text-sm font-bold transition"><i class="fa-solid fa-plus ml-1"></i> إضافة منتج جديد</button>
+                        <button onclick="addShelf(currentShopName)" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-sm font-bold transition"><i class="fa-solid fa-plus ml-1"></i> إضافة رف جديد</button>
                     </div>
                 </div>
             </div>
@@ -300,145 +353,201 @@
                 <h3 class="text-2xl font-black text-slate-900 mb-2">أقسام ورفوف المحل (10 رفوف)</h3>
                 <p class="text-slate-600 text-sm mb-8">تصفح أقسام وعروض المتجر الداخلية المنظمة بدقة</p>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 mb-12">
-                    <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl text-center shadow-sm">
-                        <div class="text-amber-600 text-2xl mb-2"><i class="fa-solid fa-tags"></i></div>
-                        <h4 class="font-bold text-slate-900 text-sm">قسم العروض (1)</h4>
-                        <p class="text-xs text-slate-500 mt-1">تخفيضات كبرى</p>
-                    </div>
-                    <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl text-center shadow-sm">
-                        <div class="text-amber-600 text-2xl mb-2"><i class="fa-solid fa-percent"></i></div>
-                        <h4 class="font-bold text-slate-900 text-sm">قسم العروض (2)</h4>
-                        <p class="text-xs text-slate-500 mt-1">لفترة محدودة</p>
-                    </div>
-                    <script>
-                        for(let s = 3; s <= 10; s++) {
-                            document.write(`
-                            <div class="bg-white border border-slate-200 p-4 rounded-2xl text-center shadow-sm">
-                                <div class="text-blue-600 text-2xl mb-2"><i class="fa-solid fa-box-archive"></i></div>
-                                <h4 class="font-bold text-slate-900 text-sm">رف رقم (${s})</h4>
-                                <p class="text-xs text-slate-500 mt-1">منتجات عالية الجودة</p>
-                            </div>`);
-                        }
-                    </script>
+                <div id="shelves-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 mb-12">
+                    <!-- تتولد الرفوف هنا ديناميكيًا عبر JavaScript (renderShelvesForShop) -->
                 </div>
 
                 <!-- 10 Products -->
                 <h3 class="text-2xl font-black text-slate-900 mb-2">منتجات مميزة للعرض (10 منتجات)</h3>
                 <p class="text-slate-600 text-sm mb-8">تشكيلة مختارة بعناية مع أسعار خاصة وخصومات حصرية (5 منتجات مخفضة)</p>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-                    <script>
-                        for(let p = 1; p <= 10; p++) {
-                            let isDisc = p <= 5;
-                            let priceHTML = isDisc ? 
-                                `<div class="flex items-center justify-center gap-2 mt-2"><span class="text-xs text-slate-400 line-through">150 ج.م</span><span class="text-lg font-black text-red-600">100 ج.م</span></div>` :
-                                `<div class="mt-2"><span class="text-lg font-black text-slate-900">120 ج.م</span></div>`;
-                            let badgeHTML = isDisc ? `<span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded">خصم حصري</span>` : '';
+                <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+                    <!-- تتولد المنتجات هنا ديناميكيًا عبر JavaScript (renderProductsForShop) -->
+                </div>
 
-                            document.write(`
-                            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex flex-col justify-between relative">
-                                ${badgeHTML}
-                                <div class="bg-slate-100 h-32 flex items-center justify-center text-slate-400"><i class="fa-solid fa-box text-3xl"></i></div>
-                                <div class="p-4 flex-grow flex flex-col justify-between">
-                                    <div>
-                                        <h4 class="font-bold text-slate-900 text-sm">منتج رقم (${p})</h4>
-                                        <p class="text-xs text-slate-500 mt-1">ضمان معتمد بالسويس</p>
-                                    </div>
-                                    <div class="mt-4">
-                                        ${priceHTML}
-                                        <a href="https://wa.me/201000000000?text=أرغب%20في%20طلب%20المنتج%20رقم%20(${p})" target="_blank" class="mt-3 block text-center bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded-xl font-bold text-xs transition">
-                                            <i class="fa-brands fa-whatsapp ml-1"></i> اطلب الآن
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>`);
-                        }
-                    </script>
+                <!-- نبذة عن المحل (يتحكم بها التاجر - حد أقصى 100 حرف) -->
+                <div class="mt-14 max-w-2xl mx-auto">
+                    <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-bold text-slate-900 text-sm"><i class="fa-solid fa-circle-info text-brand-gold ml-1.5"></i> نبذة عن المحل</h4>
+                            <button id="bio-edit-btn" onclick="editShopBio()" class="hidden text-blue-600 hover:text-blue-700 text-xs font-bold"><i class="fa-solid fa-pen ml-1"></i> تعديل</button>
+                        </div>
+                        <p id="shop-bio-text" class="text-slate-600 text-sm leading-relaxed">لم يقم التاجر بإضافة نبذة عن المحل بعد.</p>
+                    </div>
                 </div>
             </section>
         </div>
     </main>
 
     <!-- Global Footer -->
-    <footer class="bg-slate-950 text-white pt-12 pb-6 px-4 mt-auto">
+    <footer class="bg-brand-deep text-white pt-12 pb-6 px-4 mt-auto">
         <div class="container mx-auto max-w-6xl">
-            <!-- Social Icons Row -->
             <div class="flex justify-center space-x-6 space-x-reverse mb-10">
-                <a href="#" class="w-12 h-12 bg-slate-900 hover:bg-blue-600 rounded-full flex items-center justify-center text-white text-xl transition shadow"><i class="fa-brands fa-tiktok"></i></a>
-                <a href="#" class="w-12 h-12 bg-slate-900 hover:bg-pink-600 rounded-full flex items-center justify-center text-white text-xl transition shadow"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" class="w-12 h-12 bg-slate-900 hover:bg-blue-700 rounded-full flex items-center justify-center text-white text-xl transition shadow"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="w-12 h-12 bg-white/10 hover:bg-brand-gold hover:text-brand-deep rounded-full flex items-center justify-center text-white text-xl transition shadow"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#" class="w-12 h-12 bg-white/10 hover:bg-brand-gold hover:text-brand-deep rounded-full flex items-center justify-center text-white text-xl transition shadow"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="w-12 h-12 bg-white/10 hover:bg-brand-gold hover:text-brand-deep rounded-full flex items-center justify-center text-white text-xl transition shadow"><i class="fa-brands fa-facebook-f"></i></a>
             </div>
 
-            <!-- Footer 3 Columns -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-right border-b border-slate-800 pb-10">
-                <!-- Column 3: تواصل معنا -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-right border-b border-white/10 pb-10">
                 <div>
-                    <h4 class="text-amber-400 font-bold text-lg mb-4 border-r-4 border-amber-500 pr-3">تواصل معنا</h4>
-                    <ul class="space-y-3 text-sm text-slate-300">
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-amber-500"></i> السويس، جمهورية مصر العربية</li>
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-amber-500"></i> 0155xxxxxxx</li>
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-amber-500"></i> info@mazharali.com</li>
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-clock text-amber-500"></i> الأحد - الخميس: 9 ص - 11 م</li>
+                    <h4 class="text-brand-gold font-bold text-lg mb-4 border-r-4 border-brand-gold pr-3">تواصل معنا</h4>
+                    <ul class="space-y-3 text-sm text-emerald-50/80">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-brand-gold"></i> السويس، جمهورية مصر العربية</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-brand-gold"></i> 01118872502</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-brand-gold"></i> city89229@gmail.com</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-clock text-brand-gold"></i> الأحد - الخميس: 9 ص - 11 م</li>
                     </ul>
                 </div>
 
-                <!-- Column 2: روابط هامة -->
                 <div>
-                    <h4 class="text-amber-400 font-bold text-lg mb-4 border-r-4 border-amber-500 pr-3">روابط هامة</h4>
-                    <ul class="space-y-2 text-sm text-slate-300">
-                        <li><a href="#" class="hover:text-amber-400 transition">حسابي</a></li>
-                        <li><a href="#" class="hover:text-amber-400 transition">سياسة الإرجاع</a></li>
-                        <li><a href="#" class="hover:text-amber-400 transition">شروط الاستخدام</a></li>
-                        <li><a href="#" class="hover:text-amber-400 transition">سياسة الخصوصية</a></li>
-                        <li><a href="#" class="hover:text-amber-400 transition">الدعم الفني</a></li>
+                    <h4 class="text-brand-gold font-bold text-lg mb-4 border-r-4 border-brand-gold pr-3">روابط هامة</h4>
+                    <ul class="space-y-2 text-sm text-emerald-50/80">
+                        <li><a href="#" onclick="openAuthModal('login')" class="hover:text-brand-gold transition">حسابي</a></li>
+                        <li><a href="#" onclick="openInfoModal('returnPolicy')" class="hover:text-brand-gold transition">سياسة الإرجاع</a></li>
+                        <li><a href="#" onclick="openInfoModal('terms')" class="hover:text-brand-gold transition">شروط الاستخدام</a></li>
+                        <li><a href="#" onclick="openInfoModal('privacy')" class="hover:text-brand-gold transition">سياسة الخصوصية</a></li>
+                        <li><a href="#" onclick="openInfoModal('support')" class="hover:text-brand-gold transition">الدعم الفني</a></li>
                     </ul>
                 </div>
 
-                <!-- Column 1: أقسام الموقع -->
                 <div>
-                    <h4 class="text-amber-400 font-bold text-lg mb-4 border-r-4 border-amber-500 pr-3">أقسام الموقع</h4>
-                    <ul class="space-y-2 text-sm text-slate-300">
-                        <li><a href="#" onclick="showHome()" class="hover:text-amber-400 transition">الرئيسية</a></li>
-                        <li><a href="#" class="hover:text-amber-400 transition">عن الموقع</a></li>
-                        <li><a href="#subscriptions" class="hover:text-amber-400 transition">الباقات</a></li>
-                        <li><a href="#" class="hover:text-amber-400 transition">العروض والخصومات</a></li>
-                        <li><a href="#" class="hover:text-amber-400 transition">خدمة العملاء</a></li>
+                    <h4 class="text-brand-gold font-bold text-lg mb-4 border-r-4 border-brand-gold pr-3">أقسام الموقع</h4>
+                    <ul class="space-y-2 text-sm text-emerald-50/80">
+                        <li><a href="#" onclick="showHome()" class="hover:text-brand-gold transition">الرئيسية</a></li>
+                        <li><a href="#" onclick="openInfoModal('about')" class="hover:text-brand-gold transition">عن الموقع</a></li>
+                        <li><a href="#subscriptions" class="hover:text-brand-gold transition">الباقات</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition">العروض والخصومات</a></li>
+                        <li><a href="#" onclick="openInfoModal('customerService')" class="hover:text-brand-gold transition">خدمة العملاء</a></li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Copyright -->
-            <div class="text-xs text-slate-500 text-center pt-6">
+            <div class="text-xs text-emerald-50/50 text-center pt-6">
                 <p>© 2026 سوق السويس، جميع الحقوق محفوظة.</p>
-                <p class="mt-1 text-slate-600">تصميم شركة سوق المدينة | البريد الإلكتروني الأساسي: city89229@gmail.com</p>
+                <p class="mt-1 text-emerald-50/40">تصميم شركة سوق المدينة للتسويق | البريد الإلكتروني الأساسي: city89229@gmail.com</p>
             </div>
         </div>
     </footer>
 
-    <!-- Security & Core Scripts -->
+    <!-- Auth Modal: تسجيل الدخول / إنشاء حساب للعملاء -->
+    <div id="auth-modal" class="hidden fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden max-h-[92vh] overflow-y-auto">
+            <div class="flex justify-between items-center p-5 border-b border-slate-100 sticky top-0 bg-white">
+                <h3 class="font-black text-lg text-slate-900">حسابي في سوق السويس</h3>
+                <button onclick="closeAuthModal()" class="text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div class="flex p-3 gap-2">
+                <button id="auth-tab-login" onclick="switchAuthTab('login')" class="flex-1 py-2 rounded-xl font-bold text-sm bg-brand-deep text-white transition">تسجيل الدخول</button>
+                <button id="auth-tab-signup" onclick="switchAuthTab('signup')" class="flex-1 py-2 rounded-xl font-bold text-sm bg-slate-100 text-slate-700 transition">إنشاء حساب</button>
+            </div>
+
+            <!-- Login View -->
+            <div id="auth-login-view" class="px-5 pb-6 pt-2">
+                <div class="flex gap-2 mb-3">
+                    <button id="login-toggle-phone" onclick="switchAuthField('login','phone')" class="flex-1 py-1.5 rounded-lg text-xs font-bold bg-brand-gold text-brand-deep transition">رقم الهاتف</button>
+                    <button id="login-toggle-email" onclick="switchAuthField('login','email')" class="flex-1 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 transition">البريد الإلكتروني</button>
+                </div>
+                <div id="login-phone-field">
+                    <input type="tel" placeholder="01xxxxxxxxx" oninput="secureSearchInput(this)" class="w-full px-4 py-3 bg-slate-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold mb-4">
+                </div>
+                <div id="login-email-field" class="hidden">
+                    <input type="email" placeholder="example@email.com" oninput="secureSearchInput(this)" class="w-full px-4 py-3 bg-slate-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold mb-4">
+                </div>
+                <button onclick="submitLogin()" class="w-full bg-brand-deep hover:bg-emerald-700 text-white py-3 rounded-xl font-bold text-sm transition mb-4">دخول</button>
+
+                <div class="flex items-center gap-3 my-3">
+                    <div class="h-px bg-slate-200 flex-grow"></div>
+                    <span class="text-xs text-slate-400">أو</span>
+                    <div class="h-px bg-slate-200 flex-grow"></div>
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="socialAuth('google')" class="flex-1 flex items-center justify-center gap-2 border border-slate-200 py-2.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 transition"><i class="fa-brands fa-google text-red-500"></i> جوجل</button>
+                    <button onclick="socialAuth('facebook')" class="flex-1 flex items-center justify-center gap-2 border border-slate-200 py-2.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 transition"><i class="fa-brands fa-facebook text-blue-600"></i> فيسبوك</button>
+                </div>
+            </div>
+
+            <!-- Signup View -->
+            <div id="auth-signup-view" class="hidden px-5 pb-6 pt-2">
+                <input type="text" placeholder="الاسم بالكامل" oninput="secureSearchInput(this)" class="w-full px-4 py-3 bg-slate-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold mb-3">
+                <div class="flex gap-2 mb-3">
+                    <button id="signup-toggle-phone" onclick="switchAuthField('signup','phone')" class="flex-1 py-1.5 rounded-lg text-xs font-bold bg-brand-gold text-brand-deep transition">رقم الهاتف</button>
+                    <button id="signup-toggle-email" onclick="switchAuthField('signup','email')" class="flex-1 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 transition">البريد الإلكتروني</button>
+                </div>
+                <div id="signup-phone-field">
+                    <input type="tel" placeholder="01xxxxxxxxx" oninput="secureSearchInput(this)" class="w-full px-4 py-3 bg-slate-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold mb-4">
+                </div>
+                <div id="signup-email-field" class="hidden">
+                    <input type="email" placeholder="example@email.com" oninput="secureSearchInput(this)" class="w-full px-4 py-3 bg-slate-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold mb-4">
+                </div>
+                <button onclick="submitSignup()" class="w-full bg-brand-gold hover:bg-brand-gold-light text-brand-deep py-3 rounded-xl font-bold text-sm transition mb-4">إنشاء الحساب</button>
+
+                <div class="flex items-center gap-3 my-3">
+                    <div class="h-px bg-slate-200 flex-grow"></div>
+                    <span class="text-xs text-slate-400">أو سجل عبر</span>
+                    <div class="h-px bg-slate-200 flex-grow"></div>
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="socialAuth('google')" class="flex-1 flex items-center justify-center gap-2 border border-slate-200 py-2.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 transition"><i class="fa-brands fa-google text-red-500"></i> جوجل</button>
+                    <button onclick="socialAuth('facebook')" class="flex-1 flex items-center justify-center gap-2 border border-slate-200 py-2.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 transition"><i class="fa-brands fa-facebook text-blue-600"></i> فيسبوك</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Merchant WhatsApp Login Modal: دخول التاجر بلوحة تحكم محله الشخصية -->
+    <div id="merchant-login-modal" class="hidden fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden">
+            <div class="flex justify-between items-center p-5 border-b border-slate-100">
+                <h3 class="font-black text-lg text-slate-900"><i class="fa-brands fa-whatsapp text-emerald-600 ml-1"></i> دخول التاجر إلى لوحة التحكم</h3>
+                <button onclick="closeMerchantLoginModal()" class="text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div class="px-5 pb-6 pt-2">
+                <p id="merchant-login-desc" class="text-xs text-slate-500 mb-4">سجّل الدخول برقم الواتساب المسجل به محلك "<span id="merchant-login-shop-name" class="font-bold text-slate-700"></span>" للوصول إلى لوحة التحكم الخاصة بك فقط.</p>
+                <input id="merchant-whatsapp-input" type="tel" placeholder="رقم الواتساب: 01xxxxxxxxx" oninput="secureSearchInput(this)" class="w-full px-4 py-3 bg-slate-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-4">
+                <button onclick="submitMerchantLogin()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold text-sm transition flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp"></i> دخول إلى المحل
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة معلومات عامة: من نحن / خدمة العملاء / الدعم الفني / سياسة الإرجاع / سياسة الخصوصية / شروط الاستخدام -->
+    <div id="info-modal" class="hidden fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-center p-5 border-b border-slate-100 shrink-0">
+                <h3 id="info-modal-title" class="font-black text-lg text-slate-900"></h3>
+                <button onclick="closeInfoModal()" class="text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div id="info-modal-body" class="px-5 py-5 overflow-y-auto text-sm text-slate-600 leading-relaxed space-y-3"></div>
+        </div>
+    </div>
+
+    <!-- حقل مخفي مشترك لرفع صور الرفوف والمنتجات -->
+    <input type="file" id="hidden-image-input" accept="image/*" class="hidden">
+
+    <!-- ============== Security & Core Scripts (لم يتم حذف أو تعديل أي دالة حماية أصلية) ============== -->
     <script>
         function secureSearchInput(inputElement) {
-            let cleanValue = inputElement.value.replace(/[<>]/g, ""); 
+            let cleanValue = inputElement.value.replace(/[<>]/g, "");
             inputElement.value = cleanValue;
         }
 
         const actionLocks = {};
         function secureAction(actionId, callback) {
-            if (actionLocks[actionId]) return; 
+            if (actionLocks[actionId]) return;
             actionLocks[actionId] = true;
             try {
                 callback();
             } finally {
                 setTimeout(() => {
                     actionLocks[actionId] = false;
-                }, 800); 
+                }, 800);
             }
         }
 
         function saveSecureData(key, value) {
             try {
-                const encryptedLikeValue = btoa(encodeURIComponent(JSON.stringify(value))); 
+                const encryptedLikeValue = btoa(encodeURIComponent(JSON.stringify(value)));
                 localStorage.setItem('sec_' + key, encryptedLikeValue);
             } catch (e) {}
         }
@@ -451,12 +560,25 @@
             });
         }
 
+        let currentShopName = '';
+        let currentShopCat = '';
+
         function openShop(name, cat) {
             secureAction('open-shop', () => {
+                currentShopName = name;
+                currentShopCat = cat;
+                // كود حماية (2): تصفير صلاحية التعديل تمامًا عند فتح أي محل، حتى لو كان التاجر مسجل دخول في محل آخر بنفس الجلسة
+                // بهذا لا تنتقل صلاحية التحكم من محل إلى محل أبدًا، ولازم تحقق مستقل (كود حماية 1) لكل محل على حدة
+                merchantEditMode = false;
                 document.getElementById('display-shop-name').innerText = name;
                 document.getElementById('display-shop-cat').innerText = cat;
                 document.getElementById('view-home').classList.add('hidden');
                 document.getElementById('view-shop').classList.remove('hidden');
+                document.getElementById('merchant-panel').classList.add('hidden');
+                renderShelvesForShop(name);
+                renderProductsForShop(name);
+                applyShopBranding(name);
+                renderShopBio(name);
                 window.scrollTo(0, 0);
             });
         }
@@ -465,6 +587,627 @@
             secureAction('toggle-panel', () => {
                 const panel = document.getElementById('merchant-panel');
                 panel.classList.toggle('hidden');
+            });
+        }
+    </script>
+
+    <!-- ============== نظام تسجيل الدخول والاشتراك (عميل) + دخول التاجر الشخصي برقم الواتساب ==============
+         بيانات تجريبية تُحفظ محليًا بنفس أسلوب saveSecureData الأصلي، بدون أي تعديل على دوال الحماية القائمة. -->
+    <script>
+        /* ---------- نافذة تسجيل الدخول / إنشاء حساب (عميل) ---------- */
+        function openAuthModal(mode) {
+            document.getElementById('auth-modal').classList.remove('hidden');
+            switchAuthTab(mode || 'login');
+        }
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+        function switchAuthTab(mode) {
+            const isLogin = mode === 'login';
+            document.getElementById('auth-login-view').classList.toggle('hidden', !isLogin);
+            document.getElementById('auth-signup-view').classList.toggle('hidden', isLogin);
+            document.getElementById('auth-tab-login').classList.toggle('bg-brand-deep', isLogin);
+            document.getElementById('auth-tab-login').classList.toggle('text-white', isLogin);
+            document.getElementById('auth-tab-login').classList.toggle('bg-slate-100', !isLogin);
+            document.getElementById('auth-tab-login').classList.toggle('text-slate-700', !isLogin);
+            document.getElementById('auth-tab-signup').classList.toggle('bg-brand-deep', !isLogin);
+            document.getElementById('auth-tab-signup').classList.toggle('text-white', !isLogin);
+            document.getElementById('auth-tab-signup').classList.toggle('bg-slate-100', isLogin);
+            document.getElementById('auth-tab-signup').classList.toggle('text-slate-700', isLogin);
+        }
+        function switchAuthField(view, type) {
+            document.getElementById(view + '-phone-field').classList.toggle('hidden', type !== 'phone');
+            document.getElementById(view + '-email-field').classList.toggle('hidden', type !== 'email');
+            document.getElementById(view + '-toggle-phone').classList.toggle('bg-brand-gold', type === 'phone');
+            document.getElementById(view + '-toggle-phone').classList.toggle('bg-slate-100', type !== 'phone');
+            document.getElementById(view + '-toggle-email').classList.toggle('bg-brand-gold', type === 'email');
+            document.getElementById(view + '-toggle-email').classList.toggle('bg-slate-100', type !== 'email');
+        }
+        function submitLogin() {
+            secureAction('submit-login', () => {
+                alert('تم إرسال طلب تسجيل الدخول بنجاح');
+                closeAuthModal();
+            });
+        }
+        function submitSignup() {
+            secureAction('submit-signup', () => {
+                alert('تم إنشاء الحساب بنجاح، أهلاً بك في سوق السويس الإلكتروني');
+                closeAuthModal();
+            });
+        }
+        function socialAuth(provider) {
+            secureAction('social-' + provider, () => {
+                const label = provider === 'google' ? 'جوجل' : 'فيسبوك';
+                alert('سيتم تفعيل تسجيل الدخول عبر ' + label + ' قريبًا');
+            });
+        }
+
+        /* ---------- نافذة المعلومات العامة (من نحن / سياسات / دعم) ---------- */
+        const infoContent = {
+            about: {
+                title: 'من نحن',
+                icon: 'fa-circle-info',
+                body: `
+                    <p><strong class="text-slate-900">سوق السويس الإلكتروني</strong> هي منصة تسويق إلكتروني، من تصميم وتطوير <strong class="text-slate-900">شركة سوق المدينة للتسويق</strong>، تهدف إلى ربط تجار ومحلات محافظة السويس بالمواطنين مباشرة عبر الإنترنت والواتساب.</p>
+                    <p>نحن لسنا شركة توصيل أو بائعًا مباشرًا للسلع، بل منصة وسيطة توفر لكل تاجر واجهة عرض احترافية لمنتجاته وخدماته، وتُسهّل على المواطن الوصول لأقرب وأفضل المحلات دون الحاجة للتنقل.</p>
+                    <p class="font-bold text-slate-900">رسالتنا:</p>
+                    <p>دعم الاقتصاد المحلي في السويس عبر تمكين صغار ومتوسطي التجار من التواجد الرقمي بتكلفة بسيطة، وتقديم تجربة تسوق سهلة وآمنة وسريعة للمواطن.</p>
+                    <p class="font-bold text-slate-900">لماذا سوق السويس؟</p>
+                    <ul class="list-disc pr-5 space-y-1">
+                        <li>دليل شامل لمحلات وخدمات السويس في مكان واحد</li>
+                        <li>طلب وتواصل مباشر مع التاجر عبر الواتساب دون وسيط</li>
+                        <li>لوحة تحكم مستقلة لكل تاجر يدير بها محله بنفسه</li>
+                        <li>باقات اشتراك مرنة تناسب كل الأنشطة التجارية</li>
+                    </ul>`
+            },
+            customerService: {
+                title: 'خدمة العملاء',
+                icon: 'fa-headset',
+                body: `
+                    <p class="font-bold text-slate-900">أهلاً بك في خدمة عملاء سوق السويس الإلكتروني 👋</p>
+                    <p>يسعدنا تواجدك معنا! فريق خدمة العملاء جاهز لمساعدتك في أي استفسار يخص التسوق، المحلات، الطلبات، أو طرق الدفع والاشتراك.</p>
+                    <p>لأي استفسار أو مساعدة، تواصل معنا مباشرة:</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center gap-2"><i class="fa-brands fa-whatsapp text-emerald-600"></i> واتساب: <a href="https://wa.me/201118872502" target="_blank" class="text-blue-600 hover:underline">تواصل الآن</a></li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-brand-gold"></i> البريد الإلكتروني: city89229@gmail.com</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-clock text-brand-gold"></i> مواعيد العمل: الأحد - الخميس، 9 صباحًا - 11 مساءً</li>
+                    </ul>
+                    <p class="text-xs text-slate-400 mt-2">نسعى للرد على جميع الاستفسارات في أسرع وقت ممكن.</p>`
+            },
+            support: {
+                title: 'الدعم الفني',
+                icon: 'fa-headset',
+                body: `
+                    <p class="font-bold text-slate-900">مرحبًا بك في الدعم الفني 🛠️</p>
+                    <p>لو واجهت أي مشكلة تقنية أثناء استخدام الموقع (مشاكل تسجيل الدخول، عرض الصفحات، لوحة تحكم التاجر، أو أي خلل تقني آخر)، فريق الدعم الفني جاهز لمساعدتك فورًا.</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center gap-2"><i class="fa-brands fa-whatsapp text-emerald-600"></i> واتساب الدعم الفني: <a href="https://wa.me/201118872502" target="_blank" class="text-blue-600 hover:underline">تواصل الآن</a></li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-brand-gold"></i> البريد الإلكتروني: city89229@gmail.com</li>
+                    </ul>
+                    <p class="text-xs text-slate-400 mt-2">برجاء وصف المشكلة بالتفصيل (نوع الجهاز والمتصفح المستخدم) لمساعدتك بشكل أسرع.</p>`
+            },
+            returnPolicy: {
+                title: 'سياسة الإرجاع والاستبدال',
+                icon: 'fa-rotate-left',
+                body: `
+                    <p>تلتزم المحلات المسجلة على منصة سوق السويس الإلكتروني بأحكام <strong class="text-slate-900">قانون حماية المستهلك المصري رقم 181 لسنة 2018</strong> فيما يخص حقوق الاستبدال والاسترجاع.</p>
+                    <ul class="list-disc pr-5 space-y-2">
+                        <li><strong class="text-slate-900">14 يومًا:</strong> يحق للمستهلك استرجاع أو استبدال السلعة خلال 14 يومًا من تاريخ الاستلام دون إبداء أسباب، بشرط أن تكون السلعة في حالتها الأصلية دون استخدام وبكامل ملحقاتها وفاتورة الشراء.</li>
+                        <li><strong class="text-slate-900">30 يومًا:</strong> في حال وجود عيب مصنعي بالمنتج أو عدم مطابقته للمواصفات المعلن عنها، يمتد الحق إلى 30 يومًا من تاريخ الاستلام.</li>
+                        <li><strong class="text-slate-900">رد المبلغ:</strong> يلتزم التاجر برد قيمة المنتج خلال مدة لا تتجاوز 7 أيام من تاريخ استلام السلعة المرتجعة، بنفس وسيلة الدفع الأصلية ما لم يُتفق على غير ذلك.</li>
+                        <li><strong class="text-slate-900">مصاريف الشحن:</strong> يتحمل المستهلك مصاريف إعادة الشحن في حالة الاسترجاع الاختياري، إلا إذا كان السبب عيبًا أو خطأً من التاجر.</li>
+                    </ul>
+                    <p class="text-xs text-slate-400 mt-2">قد تختلف بعض الشروط التفصيلية من محل لآخر حسب طبيعة المنتج (كالمواد الغذائية أو المفتوحة الأغلفة التي يصعب استرجاعها لأسباب صحية). يُرجى التواصل مع التاجر مباشرة عبر الواتساب لتفاصيل كل عملية إرجاع، ولا تُعد هذه الصفحة استشارة قانونية.</p>`
+            },
+            privacy: {
+                title: 'سياسة الخصوصية',
+                icon: 'fa-shield-halved',
+                body: `
+                    <p>تحرص منصة سوق السويس الإلكتروني على حماية خصوصية جميع مستخدميها من مواطنين وتجار، وتلتزم بالضوابط التالية لضمان حقوق جميع الأطراف:</p>
+                    <p class="font-bold text-slate-900">أولاً: بيانات المواطن (العميل)</p>
+                    <ul class="list-disc pr-5 space-y-1">
+                        <li>لا تُستخدم بيانات التواصل (الاسم، رقم الهاتف، البريد الإلكتروني) إلا لأغراض التسجيل والتواصل بخصوص الطلبات فقط.</li>
+                        <li>لا تُشارك بيانات العملاء مع أي طرف ثالث لأغراض تسويقية دون موافقة صريحة.</li>
+                    </ul>
+                    <p class="font-bold text-slate-900">ثانياً: بيانات التاجر</p>
+                    <ul class="list-disc pr-5 space-y-1">
+                        <li>بيانات المحل (الاسم، الشعار، صورة الغلاف، المنتجات، الأسعار) ملك للتاجر، وهو المسؤول الوحيد عن دقتها ومحتواها.</li>
+                        <li>تحتفظ المنصة بحقها في مراجعة أو إزالة أي محتوى يخالف القوانين المصرية أو شروط الاستخدام.</li>
+                    </ul>
+                    <p class="font-bold text-slate-900">ثالثاً: حقوق المنصة</p>
+                    <ul class="list-disc pr-5 space-y-1">
+                        <li>تُستخدم بيانات التصفح (مثل تفضيلات البحث) لتحسين تجربة الاستخدام فقط.</li>
+                        <li>تحتفظ المنصة بحق تعليق أي حساب (تاجر أو عميل) يُثبت استخدامه بشكل مخالف للقانون أو مسيء لأطراف أخرى.</li>
+                    </ul>
+                    <p class="text-xs text-slate-400 mt-2">باستخدامك للمنصة، فإنك توافق على هذه السياسة. لأي استفسار بخصوص بياناتك، تواصل معنا عبر بيانات التواصل الموضحة بالموقع.</p>`
+            },
+            terms: {
+                title: 'شروط الاستخدام',
+                icon: 'fa-file-contract',
+                body: `
+                    <p>استخدامك لمنصة سوق السويس الإلكتروني يعني موافقتك على الشروط التالية:</p>
+                    <ul class="list-disc pr-5 space-y-1">
+                        <li>المنصة وسيط تسويقي بين التاجر والمواطن، ولا تتحمل مسؤولية جودة المنتج المباع أو دقة بياناته، فهذه مسؤولية التاجر صاحب المحل بشكل مباشر.</li>
+                        <li>عمليات الدفع والتسليم تتم بالاتفاق المباشر بين التاجر والعميل عبر الواتساب، خارج نطاق المنصة.</li>
+                        <li>يُمنع نشر أي محتوى مخالف للقانون المصري أو الآداب العامة على أي محل مسجل بالمنصة.</li>
+                        <li>تحتفظ المنصة بحق تعديل هذه الشروط أو باقات الاشتراك في أي وقت مع إخطار التجار المسجلين.</li>
+                    </ul>`
+            }
+        };
+
+        function openInfoModal(key) {
+            const info = infoContent[key];
+            if (!info) return;
+            document.getElementById('info-modal-title').innerHTML = `<i class="fa-solid ${info.icon} text-brand-gold ml-1.5"></i> ${info.title}`;
+            document.getElementById('info-modal-body').innerHTML = info.body;
+            document.getElementById('info-modal').classList.remove('hidden');
+        }
+        function closeInfoModal() {
+            document.getElementById('info-modal').classList.add('hidden');
+        }
+
+        /* ---------- دخول التاجر الشخصي إلى لوحة تحكم محله برقم الواتساب ---------- */
+        function getMerchantProfile(shopName) {
+            try {
+                const raw = localStorage.getItem('merchant_' + shopName);
+                return raw ? JSON.parse(decodeURIComponent(atob(raw))) : null;
+            } catch (e) { return null; }
+        }
+        function saveMerchantProfile(shopName, profile) {
+            try {
+                localStorage.setItem('merchant_' + shopName, btoa(encodeURIComponent(JSON.stringify(profile))));
+            } catch (e) {}
+        }
+        /* ============== كود حماية (1): التحقق من تطابق رقم الواتساب قبل دخول لوحة تحكم أي محل ==============
+           لو المحل مسجل بالفعل لتاجر، لازم رقم الواتساب المُدخل يطابق الرقم المسجل بالضبط، وإلا يُرفض الدخول
+           ويظل الداخل يتصفح كزائر عادي فقط (بدون أي صلاحية تعديل). هذا يمنع أي تاجر آخر من التحكم في محل ليس ملكه. */
+        function openMerchantPanel() {
+            secureAction('open-merchant-panel', () => {
+                const existing = getMerchantProfile(currentShopName);
+                document.getElementById('merchant-login-shop-name').innerText = currentShopName;
+                document.getElementById('merchant-login-desc').innerText = existing
+                    ? 'هذا المحل مسجل بالفعل. أدخل رقم الواتساب المسجل به المحل لتأكيد هويتك والدخول للوحة التحكم.'
+                    : 'هذا أول دخول لهذا المحل — أدخل رقم الواتساب الخاص بالمحل لتسجيله باسمك كتاجر مسؤول عنه.';
+                document.getElementById('merchant-login-modal').classList.remove('hidden');
+            });
+        }
+        function closeMerchantLoginModal() {
+            document.getElementById('merchant-login-modal').classList.add('hidden');
+        }
+        function submitMerchantLogin() {
+            secureAction('merchant-login-submit', () => {
+                const phoneInput = document.getElementById('merchant-whatsapp-input');
+                const phone = phoneInput.value.replace(/[<>]/g, '').trim();
+                if (!phone) { alert('من فضلك أدخل رقم الواتساب الخاص بالمحل'); return; }
+
+                const existing = getMerchantProfile(currentShopName);
+                if (existing) {
+                    // كود حماية (1): تطابق الرقم شرط أساسي - أي رقم مختلف يُرفض تمامًا ولا يحصل على أي صلاحية تعديل
+                    if (phone === existing.phone) {
+                        phoneInput.value = '';
+                        closeMerchantLoginModal();
+                        showMerchantDashboard(existing);
+                    } else {
+                        phoneInput.value = '';
+                        closeMerchantLoginModal();
+                        alert('عذرًا، هذا الرقم غير مطابق لرقم التاجر المسجل لهذا المحل.\nلا يمكنك التحكم في محل ليس ملكك — يمكنك تصفح المحل والتواصل مع صاحبه مباشرة عبر زر الواتساب.');
+                    }
+                } else {
+                    const profile = { phone: phone, shopName: currentShopName, shopCat: currentShopCat };
+                    saveMerchantProfile(currentShopName, profile);
+                    phoneInput.value = '';
+                    closeMerchantLoginModal();
+                    showMerchantDashboard(profile);
+                }
+            });
+        }
+        function showMerchantDashboard(profile) {
+            // تأكيد إضافي: لا تُعرض اللوحة إلا إذا كانت بيانات الملف الشخصي تخص المحل المفتوح حاليًا بالضبط
+            if (profile.shopName !== currentShopName) return;
+            document.getElementById('merchant-avatar-name').innerText = profile.shopName;
+            document.getElementById('merchant-avatar-cat').innerText = profile.shopCat;
+            document.getElementById('merchant-avatar-phone').innerText = profile.phone;
+            document.getElementById('merchant-panel').classList.remove('hidden');
+            merchantEditMode = true;
+            renderShelvesForShop(profile.shopName);
+            renderProductsForShop(profile.shopName);
+            applyShopBranding(profile.shopName);
+            renderShopBio(profile.shopName);
+            const panel = document.getElementById('merchant-panel');
+            window.scrollTo({ top: panel.offsetTop - 80, behavior: 'smooth' });
+        }
+
+        /* ---------- شركات الشحن والدليفري (بيانات نموذجية قابلة للتعديل لاحقًا) ---------- */
+        const shippingCompanies = [
+            { name: 'السويس إكسبريس للشحن', icon: 'fa-truck-fast', color: 'blue' },
+            { name: 'دليفري بلس', icon: 'fa-motorcycle', color: 'emerald' },
+            { name: 'سريع لخدمات التوصيل', icon: 'fa-box', color: 'amber' },
+            { name: 'الوصال للشحن السريع', icon: 'fa-truck', color: 'violet' },
+            { name: 'بريد السويس التجاري', icon: 'fa-dolly', color: 'cyan' },
+            { name: 'توصيلة فورية', icon: 'fa-bolt', color: 'red' }
+        ];
+        function renderShippingCompanies() {
+            const grid = document.getElementById('shipping-grid');
+            const fragment = document.createDocumentFragment();
+            shippingCompanies.forEach(co => {
+                const card = document.createElement('div');
+                card.className = 'card-hover bg-white p-4 rounded-2xl shadow-sm border border-slate-100 text-center';
+                card.innerHTML = `
+                    <div class="w-12 h-12 mx-auto bg-${co.color}-50 text-${co.color}-600 rounded-xl flex items-center justify-center text-xl mb-2">
+                        <i class="fa-solid ${co.icon}"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-xs">${co.name}</h4>`;
+                fragment.appendChild(card);
+            });
+            grid.appendChild(fragment);
+        }
+        document.addEventListener('DOMContentLoaded', renderShippingCompanies);
+    </script>
+
+    <!-- ============== توليد البيانات: نفس الأسماء والأعداد الأصلية (50 محل / 10 رفوف / 10 منتجات) ==============
+         تم استبدال document.write بـ DocumentFragment + createElement لتفادي مشاكل التحميل والأداء،
+         مع الإبقاء على نفس عدد ومحتوى المتاجر والمنتجات والرفوف بدون أي حذف. -->
+    <script>
+        const shopNames = [
+            'محل السويس للكمبيوتر', 'تكنو ستور السويس', 'معرض النور للأجهزة', 'مجموعة الاستقامة التجارية',
+            'عطارة الشفاء المباركة', 'سوبر ماركت الفيروز', 'مكتبة ومكتب أدوات', 'ملابس الأجيال',
+            'أحذية المنهج الحديث', 'أثاث دمياط فرع السويس', 'سنتر الأمل للتسوق', 'محل الشروق للكهرباء',
+            'معرض الوادي للأثاث', 'عطارة الإخلاص', 'سوبر ماركت النيل', 'مكتبة الفجر الحديثة'
+        ];
+        const cats = ['إلكترونيات', 'ملابس', 'مواد غذائية', 'أثاث', 'سيارات', 'خدمات عامة', 'عطارة وأسماك'];
+
+        function renderShops() {
+            const grid = document.getElementById('shops-grid');
+            const fragment = document.createDocumentFragment();
+
+            for (let i = 1; i <= 50; i++) {
+                const name = shopNames[(i - 1) % shopNames.length] + ' (' + i + ')';
+                const cat = cats[(i - 1) % cats.length];
+                const rating = (4.0 + ((i % 7) * 0.1)).toFixed(1);
+
+                const card = document.createElement('div');
+                card.className = 'card-hover bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex flex-col';
+                card.innerHTML = `
+                    <div class="bg-slate-200 h-36 flex items-center justify-center text-slate-400 relative">
+                        <i class="fa-solid fa-store text-4xl"></i>
+                        <span class="absolute top-3 right-3 bg-brand-gold text-brand-deep text-xs font-bold px-2 py-1 rounded-md">⭐ ${rating}</span>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs text-blue-600 font-bold bg-blue-50 px-2 py-0.5 rounded">${cat}</span>
+                            <h4 class="font-bold text-slate-900 text-lg mt-2">${name}</h4>
+                            <p class="text-xs text-slate-500 mt-1">محافظة السويس - توصيل سريع</p>
+                        </div>
+                        <div class="mt-6">
+                            <button class="open-shop-btn w-full text-center bg-brand-deep hover:bg-emerald-700 text-white py-2.5 rounded-xl font-bold text-sm transition">دخول المحل</button>
+                        </div>
+                    </div>`;
+
+                card.querySelector('.open-shop-btn').addEventListener('click', () => openShop(name, cat));
+                fragment.appendChild(card);
+            }
+            grid.appendChild(fragment);
+        }
+
+        function renderShelves() { /* تم استبدالها بـ renderShelvesForShop لكل محل على حدة */ }
+        function renderProducts() { /* تم استبدالها بـ renderProductsForShop لكل محل على حدة */ }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderShops();
+        });
+    </script>
+
+    <!-- ============== نظام تحكم التاجر الكامل بالمحل: حذف/إضافة رفوف، تغيير صور الرفوف والمنتجات، تعديل الأسعار والخصومات ==============
+         كل محل له بياناته الخاصة (مبنية افتراضيًا من نفس الرفوف والمنتجات الأصلية)، وتُحفظ التعديلات محليًا بنفس أسلوب الحماية القائم. -->
+    <script>
+        let merchantEditMode = false;
+        const shopDataCache = {};
+
+        function buildDefaultShopData() {
+            const shelves = [
+                { id: 1, title: 'قسم العروض (1)', sub: 'تخفيضات كبرى', icon: 'fa-tags', offer: true, image: null },
+                { id: 2, title: 'قسم العروض (2)', sub: 'لفترة محدودة', icon: 'fa-percent', offer: true, image: null }
+            ];
+            for (let s = 3; s <= 10; s++) {
+                shelves.push({ id: s, title: 'رف رقم (' + s + ')', sub: 'منتجات عالية الجودة', icon: 'fa-box-archive', offer: false, image: null });
+            }
+            const products = [];
+            for (let p = 1; p <= 10; p++) {
+                const isDisc = p <= 5;
+                products.push({
+                    id: p, name: 'منتج رقم (' + p + ')', desc: 'ضمان معتمد بالسويس',
+                    price: isDisc ? 100 : 120, oldPrice: isDisc ? 150 : null, discounted: isDisc, image: null
+                });
+            }
+            return { shelves, products, nextShelfId: 11, nextProductId: 11, logo: null, cover: null, bio: '' };
+        }
+
+        function getShopData(shopName) {
+            if (shopDataCache[shopName]) return shopDataCache[shopName];
+            try {
+                const raw = localStorage.getItem('shopdata_' + shopName);
+                if (raw) {
+                    const loaded = JSON.parse(decodeURIComponent(atob(raw)));
+                    if (loaded.logo === undefined) loaded.logo = null;
+                    if (loaded.cover === undefined) loaded.cover = null;
+                    if (loaded.bio === undefined) loaded.bio = '';
+                    shopDataCache[shopName] = loaded;
+                    return shopDataCache[shopName];
+                }
+            } catch (e) {}
+            const fresh = buildDefaultShopData();
+            shopDataCache[shopName] = fresh;
+            return fresh;
+        }
+
+        function saveShopData(shopName) {
+            try {
+                localStorage.setItem('shopdata_' + shopName, btoa(encodeURIComponent(JSON.stringify(shopDataCache[shopName]))));
+            } catch (e) {}
+        }
+
+        /* ---------- عرض الرفوف ---------- */
+        function renderShelvesForShop(shopName) {
+            const data = getShopData(shopName);
+            const grid = document.getElementById('shelves-grid');
+            grid.innerHTML = '';
+            const fragment = document.createDocumentFragment();
+
+            data.shelves.forEach(sh => {
+                const div = document.createElement('div');
+                // كبر مساحة رفوف العروض والتخفيضات: تاخد عرض عمودين بدل عمود واحد، وبنفس أسلوب/حجم كارت المنتج
+                const spanClass = sh.offer ? 'sm:col-span-2' : '';
+                div.className = `card-hover bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex flex-col justify-between relative ${spanClass}`;
+
+                const imageHTML = sh.image
+                    ? `<div class="h-32 sm:h-40 bg-cover bg-center" style="background-image:url('${sh.image}')"></div>`
+                    : `<div class="${sh.offer ? 'bg-amber-50' : 'bg-slate-100'} h-32 sm:h-40 flex items-center justify-center ${sh.offer ? 'text-amber-500' : 'text-slate-400'}"><i class="fa-solid ${sh.icon} text-4xl"></i></div>`;
+                const offerBadge = sh.offer ? `<span class="absolute top-2 right-2 bg-amber-500 text-white text-xs font-bold px-2 py-0.5 rounded z-10">عرض خاص</span>` : '';
+
+                div.innerHTML = `
+                    ${offerBadge}
+                    ${imageHTML}
+                    <div class="p-4 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">${sh.title}</h4>
+                            <p class="text-xs text-slate-500 mt-1">${sh.sub}</p>
+                        </div>
+                        ${merchantEditMode ? `
+                        <div class="flex gap-1.5 mt-3">
+                            <button class="shelf-img-btn flex-1 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold" title="تغيير الصورة"><i class="fa-solid fa-camera"></i></button>
+                            <button class="shelf-edit-btn flex-1 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-600 text-xs font-bold" title="تعديل"><i class="fa-solid fa-pen"></i></button>
+                            <button class="shelf-del-btn flex-1 py-1.5 rounded-lg bg-red-50 hover:bg-red-500 hover:text-white text-red-500 text-xs font-bold" title="حذف الرف"><i class="fa-solid fa-trash"></i></button>
+                        </div>` : ''}
+                    </div>`;
+
+                if (merchantEditMode) {
+                    div.querySelector('.shelf-img-btn').addEventListener('click', () => changeShelfImage(shopName, sh.id));
+                    div.querySelector('.shelf-edit-btn').addEventListener('click', () => editShelf(shopName, sh.id));
+                    div.querySelector('.shelf-del-btn').addEventListener('click', () => deleteShelf(shopName, sh.id));
+                }
+                fragment.appendChild(div);
+            });
+            grid.appendChild(fragment);
+        }
+
+        function editShelf(shopName, id) {
+            secureAction('edit-shelf-' + id, () => {
+                const data = getShopData(shopName);
+                const shelf = data.shelves.find(s => s.id === id);
+                if (!shelf) return;
+                const newTitle = prompt('اسم الرف:', shelf.title);
+                if (newTitle === null) return;
+                const newSub = prompt('وصف الرف:', shelf.sub);
+                if (newSub === null) return;
+                shelf.title = newTitle.replace(/[<>]/g, '').trim() || shelf.title;
+                shelf.sub = newSub.replace(/[<>]/g, '').trim() || shelf.sub;
+                saveShopData(shopName);
+                renderShelvesForShop(shopName);
+            });
+        }
+
+        function deleteShelf(shopName, id) {
+            secureAction('delete-shelf-' + id, () => {
+                if (!confirm('هل أنت متأكد من حذف هذا الرف؟')) return;
+                const data = getShopData(shopName);
+                data.shelves = data.shelves.filter(s => s.id !== id);
+                saveShopData(shopName);
+                renderShelvesForShop(shopName);
+            });
+        }
+
+        function addShelf(shopName) {
+            secureAction('add-shelf', () => {
+                const title = prompt('اسم الرف الجديد:');
+                if (!title) return;
+                const sub = prompt('وصف قصير للرف:', 'منتجات متنوعة') || '';
+                const data = getShopData(shopName);
+                data.shelves.push({ id: data.nextShelfId++, title: title.replace(/[<>]/g, ''), sub: sub.replace(/[<>]/g, ''), icon: 'fa-box-archive', offer: false, image: null });
+                saveShopData(shopName);
+                renderShelvesForShop(shopName);
+            });
+        }
+
+        /* ---------- عرض المنتجات ---------- */
+        function renderProductsForShop(shopName) {
+            const data = getShopData(shopName);
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '';
+            const fragment = document.createDocumentFragment();
+
+            data.products.forEach(p => {
+                const priceHTML = p.discounted && p.oldPrice
+                    ? `<div class="flex items-center justify-center gap-2 mt-2"><span class="text-xs text-slate-400 line-through">${p.oldPrice} ج.م</span><span class="text-lg font-black text-red-600">${p.price} ج.م</span></div>`
+                    : `<div class="mt-2"><span class="text-lg font-black text-slate-900">${p.price} ج.م</span></div>`;
+                const badgeHTML = (p.discounted && p.oldPrice) ? `<span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded z-10">خصم حصري</span>` : '';
+                const imageHTML = p.image
+                    ? `<div class="bg-slate-100 h-32 sm:h-40 bg-cover bg-center" style="background-image:url('${p.image}')"></div>`
+                    : `<div class="bg-slate-100 h-32 sm:h-40 flex items-center justify-center text-slate-400"><i class="fa-solid fa-box text-4xl"></i></div>`;
+
+                const card = document.createElement('div');
+                card.className = 'card-hover bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex flex-col justify-between relative';
+                card.innerHTML = `
+                    ${badgeHTML}
+                    ${imageHTML}
+                    <div class="p-4 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">${p.name}</h4>
+                            <p class="text-xs text-slate-500 mt-1">${p.desc}</p>
+                        </div>
+                        <div class="mt-4">
+                            ${priceHTML}
+                            <a href="https://wa.me/201000000000?text=أرغب%20في%20طلب%20${encodeURIComponent(p.name)}" target="_blank" class="mt-3 block text-center bg-emerald-600 hover:bg-emerald-500 text-white py-2 rounded-xl font-bold text-xs transition">
+                                <i class="fa-brands fa-whatsapp ml-1"></i> اطلب الآن
+                            </a>
+                            ${merchantEditMode ? `
+                            <div class="flex justify-center gap-1.5 mt-2">
+                                <button class="prod-img-btn flex-1 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold" title="تغيير الصورة"><i class="fa-solid fa-camera"></i></button>
+                                <button class="prod-edit-btn flex-1 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-600 text-xs font-bold" title="تعديل السعر/الخصم"><i class="fa-solid fa-pen"></i></button>
+                                <button class="prod-del-btn flex-1 py-1.5 rounded-lg bg-red-50 hover:bg-red-500 hover:text-white text-red-500 text-xs font-bold" title="حذف المنتج"><i class="fa-solid fa-trash"></i></button>
+                            </div>` : ''}
+                        </div>
+                    </div>`;
+
+                if (merchantEditMode) {
+                    card.querySelector('.prod-img-btn').addEventListener('click', () => changeProductImage(shopName, p.id));
+                    card.querySelector('.prod-edit-btn').addEventListener('click', () => editProduct(shopName, p.id));
+                    card.querySelector('.prod-del-btn').addEventListener('click', () => deleteProduct(shopName, p.id));
+                }
+                fragment.appendChild(card);
+            });
+            grid.appendChild(fragment);
+        }
+
+        function editProduct(shopName, id) {
+            secureAction('edit-product-' + id, () => {
+                const data = getShopData(shopName);
+                const prod = data.products.find(p => p.id === id);
+                if (!prod) return;
+                const newName = prompt('اسم المنتج:', prod.name);
+                if (newName === null) return;
+                const newPrice = prompt('السعر الحالي (ج.م):', prod.price);
+                if (newPrice === null) return;
+                const hasDiscount = confirm('هل يوجد خصم على هذا المنتج؟\nموافق = يوجد خصم / إلغاء = بدون خصم');
+                let oldPrice = null;
+                if (hasDiscount) {
+                    const op = prompt('السعر قبل الخصم (ج.م):', prod.oldPrice || (Number(newPrice) + 50));
+                    if (op !== null) oldPrice = Number(op) || null;
+                }
+                prod.name = newName.replace(/[<>]/g, '').trim() || prod.name;
+                prod.price = Number(newPrice) || prod.price;
+                prod.discounted = hasDiscount && !!oldPrice;
+                prod.oldPrice = prod.discounted ? oldPrice : null;
+                saveShopData(shopName);
+                renderProductsForShop(shopName);
+            });
+        }
+
+        function deleteProduct(shopName, id) {
+            secureAction('delete-product-' + id, () => {
+                if (!confirm('هل أنت متأكد من حذف هذا المنتج؟')) return;
+                const data = getShopData(shopName);
+                data.products = data.products.filter(p => p.id !== id);
+                saveShopData(shopName);
+                renderProductsForShop(shopName);
+            });
+        }
+
+        function addProduct(shopName) {
+            secureAction('add-product', () => {
+                const name = prompt('اسم المنتج الجديد:');
+                if (!name) return;
+                const price = prompt('السعر (ج.م):', '100');
+                const data = getShopData(shopName);
+                data.products.push({ id: data.nextProductId++, name: name.replace(/[<>]/g, ''), desc: 'ضمان معتمد بالسويس', price: Number(price) || 0, oldPrice: null, discounted: false, image: null });
+                saveShopData(shopName);
+                renderProductsForShop(shopName);
+                saveSecureData('last_action', 'added_product');
+            });
+        }
+
+        /* ---------- تغيير الصور (رفوف/منتجات) عبر رفع ملف من الجهاز ---------- */
+        let pendingImageTarget = null;
+        function changeShelfImage(shopName, id) {
+            pendingImageTarget = { type: 'shelf', shopName, id };
+            document.getElementById('hidden-image-input').click();
+        }
+        function changeProductImage(shopName, id) {
+            pendingImageTarget = { type: 'product', shopName, id };
+            document.getElementById('hidden-image-input').click();
+        }
+        function changeCoverImage() {
+            pendingImageTarget = { type: 'cover', shopName: currentShopName };
+            document.getElementById('hidden-image-input').click();
+        }
+        function changeLogoImage() {
+            pendingImageTarget = { type: 'logo', shopName: currentShopName };
+            document.getElementById('hidden-image-input').click();
+        }
+        document.getElementById('hidden-image-input').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            e.target.value = '';
+            if (!file || !pendingImageTarget) return;
+            const reader = new FileReader();
+            reader.onload = function (ev) {
+                const data = getShopData(pendingImageTarget.shopName);
+                if (pendingImageTarget.type === 'shelf') {
+                    const sh = data.shelves.find(s => s.id === pendingImageTarget.id);
+                    if (sh) sh.image = ev.target.result;
+                    saveShopData(pendingImageTarget.shopName);
+                    renderShelvesForShop(pendingImageTarget.shopName);
+                } else if (pendingImageTarget.type === 'product') {
+                    const p = data.products.find(x => x.id === pendingImageTarget.id);
+                    if (p) p.image = ev.target.result;
+                    saveShopData(pendingImageTarget.shopName);
+                    renderProductsForShop(pendingImageTarget.shopName);
+                } else if (pendingImageTarget.type === 'cover') {
+                    data.cover = ev.target.result;
+                    saveShopData(pendingImageTarget.shopName);
+                    applyShopBranding(pendingImageTarget.shopName);
+                } else if (pendingImageTarget.type === 'logo') {
+                    data.logo = ev.target.result;
+                    saveShopData(pendingImageTarget.shopName);
+                    applyShopBranding(pendingImageTarget.shopName);
+                }
+                pendingImageTarget = null;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        /* ---------- غلاف ولوجو المحل (يظهران بأسلوب صفحة فيسبوك، ويعدلهما التاجر فقط) ---------- */
+        function applyShopBranding(shopName) {
+            const data = getShopData(shopName);
+            const cover = document.getElementById('shop-cover');
+            const logo = document.getElementById('shop-logo');
+            const logoIcon = document.getElementById('shop-logo-icon');
+
+            cover.style.backgroundImage = data.cover ? `url('${data.cover}')` : '';
+            if (data.logo) {
+                logo.style.backgroundImage = `url('${data.logo}')`;
+                if (logoIcon) logoIcon.style.display = 'none';
+            } else {
+                logo.style.backgroundImage = '';
+                if (logoIcon) logoIcon.style.display = '';
+            }
+            document.getElementById('cover-edit-btn').classList.toggle('hidden', !merchantEditMode);
+            document.getElementById('logo-edit-btn').classList.toggle('hidden', !merchantEditMode);
+        }
+
+        /* ---------- نبذة المحل (يتحكم بها التاجر - حد أقصى 100 حرف) ---------- */
+        function renderShopBio(shopName) {
+            const data = getShopData(shopName);
+            document.getElementById('shop-bio-text').innerText = (data.bio && data.bio.trim()) ? data.bio : 'لم يقم التاجر بإضافة نبذة عن المحل بعد.';
+            document.getElementById('bio-edit-btn').classList.toggle('hidden', !merchantEditMode);
+        }
+        function editShopBio() {
+            secureAction('edit-bio', () => {
+                const data = getShopData(currentShopName);
+                let bio = prompt('اكتب نبذة مختصرة عن محلك (100 حرف كحد أقصى):', data.bio || '');
+                if (bio === null) return;
+                bio = bio.replace(/[<>]/g, '').slice(0, 100);
+                data.bio = bio;
+                saveShopData(currentShopName);
+                renderShopBio(currentShopName);
             });
         }
     </script>
