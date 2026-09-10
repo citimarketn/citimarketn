@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://citimarketn.github.io/citimarketn/sitemap.xml
